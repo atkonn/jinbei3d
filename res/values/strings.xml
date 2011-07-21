@@ -79,9 +79,9 @@ jinbei3d (1.0.0) stable; urgency=low\n
   * Copyright (c) 2011 Atsushi Konno All right reserved.\n
 \n
 ★ライセンス:\n
-  * ソースコードはhttps://github.com/atkonn/jinbei3dにてApache Software License 2.0に基づいて公開しています。\n
+  * ソースコードはApache Software License 2.0に基づいて公開しています。\n
 \t詳細は
-https://github.com/atkonn/iwashi3d/tree/jinbei3d
+https://github.com/atkonn/jinbei3d
 を参照してください。\n
 \n
 </string>
