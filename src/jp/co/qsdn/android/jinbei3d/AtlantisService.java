@@ -20,6 +20,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import android.os.Bundle;
+//import android.os.Debug;
 
 import android.service.wallpaper.WallpaperService;
 
@@ -161,6 +162,7 @@ public class AtlantisService extends WallpaperService {
 
     @Override
     public void onSurfaceCreated(final SurfaceHolder holder) {
+
       if (_debug) Log.d(TAG, "start onSurfaceCreated() [" + this + "]");
       super.onSurfaceCreated(holder);
       Runnable surfaceCreatedCommand = new Runnable() {
