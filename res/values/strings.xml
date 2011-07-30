@@ -36,7 +36,7 @@
   <string name="key_preference_ok_button">ok_button</string>
   <string name="text_preference_ok_button">OK</string>
 
-  <string name="about_title">about School of sardines</string>
+  <string name="about_title">about Whale shark and Sardines</string>
   <string name="text_about_ok_button">OK</string>
 
   <string name="about_description">Explanation:\n
@@ -59,27 +59,13 @@ Requirement:\n
 2) OpenGL ES 1.0.\n
 3) Over 3MB Heep memory area.\n
 \n
-ChangeLog:\n
-jinbei3d (1.0.2) stable; urgency=low\n
+Newly ChangeLog:\n
+jinbei3d (1.0.3) stable; urgency=low\n
 \n
-  * Changed default language.\n
-    - japanese to english\n
+  * Changed BOIDS algorithm part.\n
+\twhich I omitted for fear of transaction speed properly.\n
 \n
- -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Thu, 21 Jul 2011 23:22:46 +0900\n
-\n
-jinbei3d (1.0.1) stable; urgency=low\n
-\n
-  * Deleted PERMISSION\n
-    - android.permission.ACCESS_COARSE_LOCATION\n
-    - android.permission.ACCESS_FINE_LOCATION\n
-\n
- -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Thu, 21 Jul 2011 10:14:27 +0900\n
-\n
-jinbei3d (1.0.0) stable; urgency=low\n
-\n
-  * Initial release.\n
-\n
- -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Wed, 20 Jul 2011 22:41:23 +0900\n
+ -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Sun, 31 Jul 2011 00:16:46 +0900\n
 \n
 Copyright:\n
   * Copyright (c) 2011 QSDN,Inc. All right reserved.\n

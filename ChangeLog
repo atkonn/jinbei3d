@@ -1,3 +1,10 @@
+jinbei3d (1.0.3) stable; urgency=low
+
+  * Changed BOIDS algorithm part.
+    which I omitted for fear of transaction speed properly.
+
+ -- Atsushi Konno <konno@qsdn.co.jp>  Sun, 31 Jul 2011 00:16:46 +0900
+
 jinbei3d (1.0.2) stable; urgency=low
 
   * Changed default language.

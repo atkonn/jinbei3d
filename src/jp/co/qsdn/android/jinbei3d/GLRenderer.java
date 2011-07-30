@@ -48,7 +48,7 @@ import jp.co.qsdn.android.jinbei3d.setting.Prefs;
 import jp.co.qsdn.android.jinbei3d.util.CoordUtil;
 
 public class GLRenderer {
-  private static final boolean _debug = true;
+  private static final boolean _debug = false;
   private static final String TAG = GLRenderer.class.getName();
   public static final int MAX_IWASHI_COUNT = 100;
   private final Background background = new Background();
