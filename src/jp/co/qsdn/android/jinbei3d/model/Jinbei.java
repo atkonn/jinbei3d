@@ -79,11 +79,7 @@ public class Jinbei implements Model {
     0d,0d,0d,
     0d,0d,0d,
   };
-  public static double[] al1_aabb = {
-    0d,0d,0d,
-    0d,0d,0d,
-  };
-  public static double[] al2_aabb = {
+  public static double[] al_aabb = {
     0d,0d,0d,
     0d,0d,0d,
   };
@@ -95,8 +91,7 @@ public class Jinbei implements Model {
     0d,0d,0d,
     0d,0d,0d,
   };
-  public static final double alignment_dist1= 15.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
-  public static final double alignment_dist2= 35.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
+  public static final double alignment_dist = 35.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
   public static final double school_dist    = 70.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
   public static final double cohesion_dist  = 110.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
   private float[] schoolCenter = {0f,0f,0f};
@@ -1879,8 +1874,7 @@ public class Jinbei implements Model {
 
     // boundingboxを計算
     separateBoundingBox();
-    alignment1BoundingBox();
-    alignment2BoundingBox();
+    alignmentBoundingBox();
 
     gl10.glColor4f(1,1,1,1);
     gl10.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
@@ -2949,126 +2943,64 @@ public class Jinbei implements Model {
             && (float)min_z <= z && (float)max_z >= z);
   }
 
-  public void alignment1BoundingBox() {
+  public void alignmentBoundingBox() {
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[0] - (float)alignment_dist1,
-                         (float)aabb_org[1] - (float)alignment_dist1, 
-                         (float)aabb_org[2] - (float)alignment_dist1, 
+        coordUtil.affine((float)aabb_org[0] - (float)alignment_dist,
+                         (float)aabb_org[1] - (float)alignment_dist, 
+                         (float)aabb_org[2] - (float)alignment_dist, 
                          mScratch4f_1);
         coordUtil.setMatrixRotateY(y_angle);
         coordUtil.affine(mScratch4f_1[0],mScratch4f_1[1], mScratch4f_1[2], mScratch4f_2);
-        al1_aabb[0] = mScratch4f_2[0];
-        al1_aabb[1] = mScratch4f_2[1];
-        al1_aabb[2] = mScratch4f_2[2];
+        al_aabb[0] = mScratch4f_2[0];
+        al_aabb[1] = mScratch4f_2[1];
+        al_aabb[2] = mScratch4f_2[2];
       }
     }
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[3] + (float)alignment_dist1,
-                         (float)aabb_org[4] + (float)alignment_dist1, 
-                         (float)aabb_org[5] + (float)alignment_dist1, 
+        coordUtil.affine((float)aabb_org[3] + (float)alignment_dist,
+                         (float)aabb_org[4] + (float)alignment_dist, 
+                         (float)aabb_org[5] + (float)alignment_dist, 
                          mScratch4f_1);
         coordUtil.setMatrixRotateY(y_angle);
         coordUtil.affine(mScratch4f_1[0],mScratch4f_1[1], mScratch4f_1[2], mScratch4f_2);
-        al1_aabb[3] = mScratch4f_2[0];
-        al1_aabb[4] = mScratch4f_2[1];
-        al1_aabb[5] = mScratch4f_2[2];
+        al_aabb[3] = mScratch4f_2[0];
+        al_aabb[4] = mScratch4f_2[1];
+        al_aabb[5] = mScratch4f_2[2];
       }
     }
-    if (al1_aabb[0] > al1_aabb[3]) {
-      double tmp = al1_aabb[0];
-      al1_aabb[0] = al1_aabb[3];
-      al1_aabb[3] = tmp;
+    if (al_aabb[0] > al_aabb[3]) {
+      double tmp = al_aabb[0];
+      al_aabb[0] = al_aabb[3];
+      al_aabb[3] = tmp;
     }
-    if (al1_aabb[1] > al1_aabb[4]) {
-      double tmp = al1_aabb[1];
-      al1_aabb[1] = al1_aabb[4];
-      al1_aabb[4] = tmp;
+    if (al_aabb[1] > al_aabb[4]) {
+      double tmp = al_aabb[1];
+      al_aabb[1] = al_aabb[4];
+      al_aabb[4] = tmp;
     }
-    if (al1_aabb[2] > al1_aabb[5]) {
-      double tmp = al1_aabb[2];
-      al1_aabb[2] = al1_aabb[5];
-      al1_aabb[5] = tmp;
+    if (al_aabb[2] > al_aabb[5]) {
+      double tmp = al_aabb[2];
+      al_aabb[2] = al_aabb[5];
+      al_aabb[5] = tmp;
     }
-    al1_aabb[0] += getX();
-    al1_aabb[1] += getY();
-    al1_aabb[2] += getZ();
-    al1_aabb[3] += getX();
-    al1_aabb[4] += getY();
-    al1_aabb[5] += getZ();
+    al_aabb[0] += getX();
+    al_aabb[1] += getY();
+    al_aabb[2] += getZ();
+    al_aabb[3] += getX();
+    al_aabb[4] += getY();
+    al_aabb[5] += getZ();
   }
-  public static boolean crossTestAl1(float x, float y, float z) {
-    double min_x = al1_aabb[0];
-    double min_y = al1_aabb[1];
-    double min_z = al1_aabb[2];
-    double max_x = al1_aabb[3];
-    double max_y = al1_aabb[4];
-    double max_z = al1_aabb[5];
-    return (   (float)min_x <= x && (float)max_x >= x
-            && (float)min_y <= y && (float)max_y >= y
-            && (float)min_z <= z && (float)max_z >= z);
-  }
-  public void alignment2BoundingBox() {
-    coordUtil.setMatrixRotateZ(x_angle);
-    synchronized (mScratch4f_1) {
-      synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[0] - (float)alignment_dist2,
-                         (float)aabb_org[1] - (float)alignment_dist2, 
-                         (float)aabb_org[2] - (float)alignment_dist2, 
-                         mScratch4f_1);
-        coordUtil.setMatrixRotateY(y_angle);
-        coordUtil.affine(mScratch4f_1[0],mScratch4f_1[1], mScratch4f_1[2], mScratch4f_2);
-        al2_aabb[0] = mScratch4f_2[0];
-        al2_aabb[1] = mScratch4f_2[1];
-        al2_aabb[2] = mScratch4f_2[2];
-      }
-    }
-    coordUtil.setMatrixRotateZ(x_angle);
-    synchronized (mScratch4f_1) {
-      synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[3] + (float)alignment_dist2,
-                         (float)aabb_org[4] + (float)alignment_dist2, 
-                         (float)aabb_org[5] + (float)alignment_dist2, 
-                         mScratch4f_1);
-        coordUtil.setMatrixRotateY(y_angle);
-        coordUtil.affine(mScratch4f_1[0],mScratch4f_1[1], mScratch4f_1[2], mScratch4f_2);
-        al2_aabb[3] = mScratch4f_2[0];
-        al2_aabb[4] = mScratch4f_2[1];
-        al2_aabb[5] = mScratch4f_2[2];
-      }
-    }
-    if (al2_aabb[0] > al2_aabb[3]) {
-      double tmp = al2_aabb[0];
-      al2_aabb[0] = al2_aabb[3];
-      al2_aabb[3] = tmp;
-    }
-    if (al2_aabb[1] > al2_aabb[4]) {
-      double tmp = al2_aabb[1];
-      al2_aabb[1] = al2_aabb[4];
-      al2_aabb[4] = tmp;
-    }
-    if (al2_aabb[2] > al2_aabb[5]) {
-      double tmp = al2_aabb[2];
-      al2_aabb[2] = al2_aabb[5];
-      al2_aabb[5] = tmp;
-    }
-    al2_aabb[0] += getX();
-    al2_aabb[1] += getY();
-    al2_aabb[2] += getZ();
-    al2_aabb[3] += getX();
-    al2_aabb[4] += getY();
-    al2_aabb[5] += getZ();
-  }
-  public static boolean crossTestAl2(float x, float y, float z) {
-    double min_x = al2_aabb[0];
-    double min_y = al2_aabb[1];
-    double min_z = al2_aabb[2];
-    double max_x = al2_aabb[3];
-    double max_y = al2_aabb[4];
-    double max_z = al2_aabb[5];
+  public static boolean crossTestAl(float x, float y, float z) {
+    double min_x = al_aabb[0];
+    double min_y = al_aabb[1];
+    double min_z = al_aabb[2];
+    double max_x = al_aabb[3];
+    double max_y = al_aabb[4];
+    double max_z = al_aabb[5];
     return (   (float)min_x <= x && (float)max_x >= x
             && (float)min_y <= y && (float)max_y >= y
             && (float)min_z <= z && (float)max_z >= z);
