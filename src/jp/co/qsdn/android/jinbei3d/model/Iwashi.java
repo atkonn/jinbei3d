@@ -433,14 +433,16 @@ public class Iwashi implements Model {
         }
       }
 
-      if (dist < cohesion_dist) {
-        if (isJinbeiNo(ii)) {
+      if (isJinbeiNo(ii)) {
+        if (((Jinbei)species[ii]).crossTestCoh(getX(),getY(),getZ())) {
           schoolCenter[0] += (species[ii].getX() * JINBEI_WEIGHT);
           schoolCenter[1] += (species[ii].getY() * JINBEI_WEIGHT);
           schoolCenter[2] += (species[ii].getZ() * JINBEI_WEIGHT);
           schoolCount += JINBEI_WEIGHT;
         }
-        else {
+      }
+      else {
+        if (dist < cohesion_dist) {
           schoolCenter[0] += species[ii].getX();
           schoolCenter[1] += species[ii].getY();
           schoolCenter[2] += species[ii].getZ();

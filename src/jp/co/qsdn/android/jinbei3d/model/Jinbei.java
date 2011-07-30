@@ -83,27 +83,16 @@ public class Jinbei implements Model {
     0d,0d,0d,
     0d,0d,0d,
   };
-  public static double[] sch_aabb = {
-    0d,0d,0d,
-    0d,0d,0d,
-  };
   public static double[] coh_aabb = {
     0d,0d,0d,
     0d,0d,0d,
   };
-  public static final double alignment_dist = 35.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
-  public static final double school_dist    = 70.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
-  public static final double cohesion_dist  = 110.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
-  private float[] schoolCenter = {0f,0f,0f};
-  private float[] schoolDir = {0f,0f,0f};
+  public static final double alignment_dist = 50.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
+  public static final double cohesion_dist  = 100.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
 
   private enum STATUS {
     TO_CENTER, /* 画面の真ん中へ向かい中 */
     TO_BAIT,   /* 餌へ向かっている最中   */
-    SEPARATE,  /* 近づき過ぎたので離れる */
-    ALIGNMENT, /* 整列中 */
-    COHESION,  /* 近づく */
-    TO_SCHOOL_CENTER,   /* 群れの真ん中へ */
     NORMAL,    /* ランダム */
   };
 
@@ -1875,6 +1864,7 @@ public class Jinbei implements Model {
     // boundingboxを計算
     separateBoundingBox();
     alignmentBoundingBox();
+    cohesionBoundingBox();
 
     gl10.glColor4f(1,1,1,1);
     gl10.glVertexPointer(3, GL10.GL_FLOAT, 0, mVertexBuffer);
@@ -1892,7 +1882,7 @@ public class Jinbei implements Model {
 
   public void update_speed() {
     sv_speed = speed;
-    if (getStatus() == STATUS.COHESION || getStatus() == STATUS.TO_SCHOOL_CENTER || getStatus() == STATUS.TO_BAIT) {
+    if (getStatus() == STATUS.TO_BAIT) {
       speed = cohesion_speed;
       return;
     }
@@ -1919,8 +1909,7 @@ public class Jinbei implements Model {
     if (prevTime != 0) {
       tick = nowTime - prevTime;
     }
-    if (getStatus() == STATUS.COHESION || getStatus() == STATUS.TO_SCHOOL_CENTER || getStatus() == STATUS.TO_BAIT) {
-      /* 元に戻す */
+    if (getStatus() == STATUS.TO_BAIT) {
       speed = sv_speed;
     }
     prevTime = nowTime;
@@ -2374,103 +2363,6 @@ public class Jinbei implements Model {
         + "z:[" + direction[2] + "]:");
     }
   }
-  public void aimSchoolCenter() {
-    if (debug) {
-      Log.d(TAG, "start aimSchoolCenter ");
-    }
-
-    float v_x = 0f;
-    float v_y = 0f;
-    float v_z = 0f;
-    synchronized (mScratch4f_1) {
-      /*=======================================================================*/
-      /* 向かいたいschoolの方向取得                                            */
-      /*=======================================================================*/
-      mScratch4f_1[0] = schoolDir[0];
-      mScratch4f_1[1] = schoolDir[1];
-      mScratch4f_1[2] = schoolDir[2];
-      CoordUtil.normalize3fv(mScratch4f_1);
-      synchronized (mScratch4f_2) {
-        /*=====================================================================*/
-        /* 自分から見て、ターゲットの方向を算出                                */
-        /*=====================================================================*/
-        mScratch4f_2[0] = schoolCenter[0] - getX();
-        mScratch4f_2[1] = schoolCenter[1] - getY();
-        mScratch4f_2[2] = schoolCenter[2] - getZ();
-        CoordUtil.normalize3fv(mScratch4f_2);
-        /*=====================================================================*/
-        /* ややターゲットに近づきたいので x2                                   */
-        /*=====================================================================*/
-        mScratch4f_2[0] *= 2f;
-        mScratch4f_2[1] *= 2f;
-        mScratch4f_2[2] *= 2f;
-        /*=====================================================================*/
-        /* 足し込む                                                            */
-        /*=====================================================================*/
-        mScratch4f_1[0] += mScratch4f_2[0];
-        mScratch4f_1[1] += mScratch4f_2[1];
-        mScratch4f_1[2] += mScratch4f_2[2];
-      }
-      /*=====================================================================*/
-      /* 平均算出                                                            */
-      /*=====================================================================*/
-      mScratch4f_1[0] /= 3f;
-      mScratch4f_1[1] /= 3f;
-      mScratch4f_1[2] /= 3f;
-
-      v_x = mScratch4f_1[0];
-      v_y = mScratch4f_1[1];
-      v_z = mScratch4f_1[2];
-    }
-    //float v_x = (schoolCenter[0] - getX());
-    //float v_y = (schoolCenter[1] - getY());
-    //float v_z = (schoolCenter[2] - getZ());
-
-    /* 上下角度算出 (-1dを乗算しているのは0度の向きが違うため) */
-    float angle_x = (float)coordUtil.convertDegreeXY((double)v_x, (double)v_y);
-    /* 左右角度算出 (-1dを乗算しているのは0度の向きが違うため) */
-    float angle_y = (float)coordUtil.convertDegreeXZ((double)v_x * -1d, (double)v_z);
-    if (angle_x > 180f) {
-      angle_x = angle_x - 360f;
-    }
-    if ((angle_x < 0.0f && v_y > 0.0f) || (angle_x > 0.0f && v_y < 0.0f)) {
-      angle_x *= -1f;
-    }
-    if (debug) {
-      Log.d(TAG, "向かいたい方向のangle_y:[" + angle_y + "]");
-      Log.d(TAG, "向かいたい方向のangle_x:[" + angle_x + "]");
-    }
-
-    if (angle_y < 0.0f) {
-      angle_y = 360f + angle_y;
-    }
-    angle_y = angle_y % 360f;
-
-    /* その角度へ近づける */
-    aimTargetDegree(angle_x, angle_y);
-    if (debug) {
-      Log.d(TAG, "実際に向かう方向のy_angle:[" + y_angle + "]");
-      Log.d(TAG, "実際に向かう方向のx_angle:[" + x_angle + "]");
-    }
-
-    coordUtil.setMatrixRotateZ(x_angle);
-    synchronized (mScratch4f_1) {
-      synchronized (mScratch4f_2) {
-        coordUtil.affine(-1.0f,0.0f, 0.0f, mScratch4f_1);
-        coordUtil.setMatrixRotateY(y_angle);
-        coordUtil.affine(mScratch4f_1[0],mScratch4f_1[1], mScratch4f_1[2], mScratch4f_2);
-        direction[0] = mScratch4f_2[0];
-        direction[1] = mScratch4f_2[1];
-        direction[2] = mScratch4f_2[2];
-      }
-    }
-    if (debug) {
-      Log.d(TAG, "end aimSchoolCenter "
-        + "x:[" + direction[0] + "]:"
-        + "y:[" + direction[1] + "]:"
-        + "z:[" + direction[2] + "]:");
-    }
-  }
   public boolean aimBait(Bait bait) {
     if (debug) {
       Log.d(TAG, "start aimBait ");
@@ -2703,46 +2595,6 @@ public class Jinbei implements Model {
       this.y_angle = y_angle;
   }
   
-  /**
-   * Get schoolCenter.
-   *
-   * @return schoolCenter as float[].
-   */
-  public float[] getSchoolCenter()
-  {
-      return schoolCenter;
-  }
-  
-  /**
-   * Get schoolCenter element at specified index.
-   *
-   * @param index the index.
-   * @return schoolCenter at index as float.
-   */
-  public float getSchoolCenter(int index)
-  {
-      return schoolCenter[index];
-  }
-  
-  /**
-   * Set schoolCenter.
-   *
-   * @param schoolCenter the value to set.
-   */
-  public void setSchoolCenter(float[] schoolCenter) {
-      this.schoolCenter = schoolCenter;
-  }
-  
-  /**
-   * Set schoolCenter at the specified index.
-   *
-   * @param schoolCenter the value to set.
-   * @param index the index.
-   */
-  public void setSchoolCenter(float schoolCenter, int index)
-  {
-      this.schoolCenter[index] = schoolCenter;
-  }
   
   /**
    * Get baitManager.
@@ -2947,7 +2799,7 @@ public class Jinbei implements Model {
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[0] - (float)alignment_dist,
+        coordUtil.affine((float)aabb_org[0] - ((float)alignment_dist / 2f),
                          (float)aabb_org[1] - (float)alignment_dist, 
                          (float)aabb_org[2] - (float)alignment_dist, 
                          mScratch4f_1);
@@ -2961,7 +2813,7 @@ public class Jinbei implements Model {
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[3] + (float)alignment_dist,
+        coordUtil.affine((float)aabb_org[3] + ((float)alignment_dist / 2f),
                          (float)aabb_org[4] + (float)alignment_dist, 
                          (float)aabb_org[5] + (float)alignment_dist, 
                          mScratch4f_1);
@@ -3005,73 +2857,11 @@ public class Jinbei implements Model {
             && (float)min_y <= y && (float)max_y >= y
             && (float)min_z <= z && (float)max_z >= z);
   }
-  public void schoolBoundingBox() {
-    coordUtil.setMatrixRotateZ(x_angle);
-    synchronized (mScratch4f_1) {
-      synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[0] - (float)school_dist,
-                         (float)aabb_org[1] - (float)school_dist, 
-                         (float)aabb_org[2] - (float)school_dist, 
-                         mScratch4f_1);
-        coordUtil.setMatrixRotateY(y_angle);
-        coordUtil.affine(mScratch4f_1[0],mScratch4f_1[1], mScratch4f_1[2], mScratch4f_2);
-        sch_aabb[0] = mScratch4f_2[0];
-        sch_aabb[1] = mScratch4f_2[1];
-        sch_aabb[2] = mScratch4f_2[2];
-      }
-    }
-    coordUtil.setMatrixRotateZ(x_angle);
-    synchronized (mScratch4f_1) {
-      synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[3] + (float)school_dist,
-                         (float)aabb_org[4] + (float)school_dist, 
-                         (float)aabb_org[5] + (float)school_dist, 
-                         mScratch4f_1);
-        coordUtil.setMatrixRotateY(y_angle);
-        coordUtil.affine(mScratch4f_1[0],mScratch4f_1[1], mScratch4f_1[2], mScratch4f_2);
-        sch_aabb[3] = mScratch4f_2[0];
-        sch_aabb[4] = mScratch4f_2[1];
-        sch_aabb[5] = mScratch4f_2[2];
-      }
-    }
-    if (sch_aabb[0] > sch_aabb[3]) {
-      double tmp = sch_aabb[0];
-      sch_aabb[0] = sch_aabb[3];
-      sch_aabb[3] = tmp;
-    }
-    if (sch_aabb[1] > sch_aabb[4]) {
-      double tmp = sch_aabb[1];
-      sch_aabb[1] = sch_aabb[4];
-      sch_aabb[4] = tmp;
-    }
-    if (sch_aabb[2] > sch_aabb[5]) {
-      double tmp = sch_aabb[2];
-      sch_aabb[2] = sch_aabb[5];
-      sch_aabb[5] = tmp;
-    }
-    sch_aabb[0] += getX();
-    sch_aabb[1] += getY();
-    sch_aabb[2] += getZ();
-    sch_aabb[3] += getX();
-    sch_aabb[4] += getY();
-    sch_aabb[5] += getZ();
-  }
-  public static boolean crossTestSch(float x, float y, float z) {
-    double min_x = sch_aabb[0];
-    double min_y = sch_aabb[1];
-    double min_z = sch_aabb[2];
-    double max_x = sch_aabb[3];
-    double max_y = sch_aabb[4];
-    double max_z = sch_aabb[5];
-    return (   (float)min_x <= x && (float)max_x >= x
-            && (float)min_y <= y && (float)max_y >= y
-            && (float)min_z <= z && (float)max_z >= z);
-  }
   public void cohesionBoundingBox() {
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[0] - (float)cohesion_dist,
+        coordUtil.affine((float)aabb_org[0] - ((float)cohesion_dist / 2f),
                          (float)aabb_org[1] - (float)cohesion_dist, 
                          (float)aabb_org[2] - (float)cohesion_dist, 
                          mScratch4f_1);
@@ -3085,7 +2875,7 @@ public class Jinbei implements Model {
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[3] + (float)cohesion_dist,
+        coordUtil.affine((float)aabb_org[3] + ((float)cohesion_dist / 2f),
                          (float)aabb_org[4] + (float)cohesion_dist, 
                          (float)aabb_org[5] + (float)cohesion_dist, 
                          mScratch4f_1);
