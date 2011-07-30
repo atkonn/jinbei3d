@@ -62,8 +62,11 @@ Requirement:\n
 Newly ChangeLog:\n
 jinbei3d (1.0.3) stable; urgency=low\n
 \n
-  * Changed BOIDS algorithm part.\n
-\twhich I omitted for fear of transaction speed properly.\n
+* Improved a part of the BOIDS algorithm\n
+\tBecause there was concern at transaction speed,\n
+\tI made processing short in a BOIDS part.\n
+\tHowever, there was not the need by the improvement\n
+\tof the drawing part. thus I did a BOIDS part properly.\n
 \n
  -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Sun, 31 Jul 2011 00:16:46 +0900\n
 \n

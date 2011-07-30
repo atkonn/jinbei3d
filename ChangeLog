@@ -1,7 +1,10 @@
 jinbei3d (1.0.3) stable; urgency=low
 
-  * Changed BOIDS algorithm part.
-    which I omitted for fear of transaction speed properly.
+  * Improved a part of the BOIDS algorithm
+    Because there was concern at transaction speed,
+    I made processing short in a BOIDS part.
+    However, there was not the need by the improvement
+    of the drawing part. thus I did a BOIDS part properly.
 
  -- Atsushi Konno <konno@qsdn.co.jp>  Sun, 31 Jul 2011 00:16:46 +0900
 
