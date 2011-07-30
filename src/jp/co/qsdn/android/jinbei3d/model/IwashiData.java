@@ -46,9 +46,6 @@ public class IwashiData {
         mVertexBuffer[ii] = vbb.asFloatBuffer();
        break;
       }
-      ByteBuffer vbb = ByteBuffer.allocateDirect(vertices.length * 4);
-      vbb.order(ByteOrder.nativeOrder());
-      mVertexBuffer[ii] = vbb.asFloatBuffer();
     }
     mVertexBuffer[0].position(0);
     mVertexBuffer[0].put(vertices);
