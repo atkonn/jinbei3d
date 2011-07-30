@@ -87,8 +87,8 @@ public class Jinbei implements Model {
     0d,0d,0d,
     0d,0d,0d,
   };
-  public static final double alignment_dist = 50.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
-  public static final double cohesion_dist  = 100.0d * scale * (double)Iwashi.GL_IWASHI_SCALE;
+  public static final double alignment_dist = 15.0d * scale * (double)GL_JINBEI_SCALE;
+  public static final double cohesion_dist  = 30.0d * scale * (double)GL_JINBEI_SCALE;
 
   private enum STATUS {
     TO_CENTER, /* 画面の真ん中へ向かい中 */
@@ -2813,7 +2813,7 @@ public class Jinbei implements Model {
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[3] + ((float)alignment_dist / 2f),
+        coordUtil.affine((float)aabb_org[3] + (float)alignment_dist,
                          (float)aabb_org[4] + (float)alignment_dist, 
                          (float)aabb_org[5] + (float)alignment_dist, 
                          mScratch4f_1);
@@ -2875,7 +2875,7 @@ public class Jinbei implements Model {
     coordUtil.setMatrixRotateZ(x_angle);
     synchronized (mScratch4f_1) {
       synchronized (mScratch4f_2) {
-        coordUtil.affine((float)aabb_org[3] + ((float)cohesion_dist / 2f),
+        coordUtil.affine((float)aabb_org[3] + (float)cohesion_dist,
                          (float)aabb_org[4] + (float)cohesion_dist, 
                          (float)aabb_org[5] + (float)cohesion_dist, 
                          mScratch4f_1);
