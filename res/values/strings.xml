@@ -61,6 +61,14 @@ Requirement:\n
 3) Over 3MB Heep memory area.\n
 \n
 Newly ChangeLog:\n
+jinbei3d (1.0.5) stable; urgency=low\n
+\n
+\t* Changed Max number of Sardines to 150\n
+\t\t- if your device become slow or choppy, please adjust\n
+\t\t  speed and number of sardines.\n
+\n
+ -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Thu, 04 Aug 2011 02:22:07 +0900\n
+\n
 jinbei3d (1.0.4) stable; urgency=low\n
 \n
 * Fixed Bug.

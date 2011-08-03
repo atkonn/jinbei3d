@@ -1,3 +1,11 @@
+jinbei3d (1.0.5) stable; urgency=low
+
+  * Changed Max number of Sardines to 150
+    - if your device become slow or choppy, please adjust
+      speed and number of sardines.
+
+ -- Atsushi Konno <konno@qsdn.co.jp>  Thu, 04 Aug 2011 02:22:07 +0900
+
 jinbei3d (1.0.4) stable; urgency=low
 
   * Fixed Bug.
