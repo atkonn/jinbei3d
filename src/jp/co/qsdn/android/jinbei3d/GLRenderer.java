@@ -50,7 +50,7 @@ import jp.co.qsdn.android.jinbei3d.util.CoordUtil;
 public class GLRenderer {
   private static final boolean _debug = false;
   private static final String TAG = GLRenderer.class.getName();
-  public static final int MAX_IWASHI_COUNT = 100;
+  public static final int MAX_IWASHI_COUNT = 150;
   private final Background background = new Background();
   private final Ground ground = new Ground();
   private final Wave wave = new Wave();
