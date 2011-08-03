@@ -5,7 +5,7 @@
   <string name="service_name">甚平鮫と鰯</string>
   <string name="description">Boidsアルゴリズムを使った鰯の群れ3Dライブ壁紙(ジンベイザメ付き)</string>
   <string name="author">株式会社QSDN</string>
-  <string name="version">version 1.0.4</string>
+  <string name="version">version 1.0.5</string>
   <string name="copyright">Copyright © 2011 QSDN,Inc. All rights reserved.</string>
 
   <string name="setting_title">設定</string>
@@ -46,6 +46,8 @@ Boidsアルゴリズムを使った鰯の群れをシミュレートする3Dラ�
 ★特徴:\n
 1) 「群れ」をシミュレートします。\n
 2) イワシの数は最大150匹まで設定可能です。\n
+端末が遅くなったり、途切れ途切れになった場合は\n
+イワシのスピードやイワシの数を調整してください。\n
 3) イワシの泳ぐスピードを変更できます。\n
 4) ジンベイザメの泳ぐスピードを変更できます。\n
 5) 画面をタッチするとイワシが寄ってきます。\n

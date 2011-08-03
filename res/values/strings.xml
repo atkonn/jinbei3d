@@ -5,7 +5,7 @@
   <string name="service_name">Whale shark and sardines</string>
   <string name="description">3D live wallpaper that used BOIDS algorithm</string>
   <string name="author">QSDN,Inc.</string>
-  <string name="version">version 1.0.4</string>
+  <string name="version">version 1.0.5</string>
   <string name="copyright">Copyright (c) 2011 QSDN,Inc. All rights reserved.</string>
 
   <string name="setting_title">Settings</string>
@@ -45,6 +45,7 @@ This is 3D live Wallpaper simulating a school of sardines which used BOIDS algor
 Features:\n
 1) This simulates "a school of sardines".\n
 2) You can increase the number of sardine to 150 of them.\n
+\tIf your device become slow or choppy, please adjust speed and the number of sardine.\n
 3) You can change the speed that the sardine swims.\n
 4) You can change the speed that the whale shark swims.\n
 5) Sardine comes there when you touched screen.\n
