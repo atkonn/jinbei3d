@@ -1,6 +1,6 @@
 jinbei3d (1.0.6) stable; urgency=low
 
-  * Changed color of setting activities
+  * Enable DITHER
 
  -- Atsushi Konno <konno@qsdn.co.jp>  Sat, 06 Aug 2011 17:55:47 +0900
 
