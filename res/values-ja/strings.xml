@@ -62,6 +62,13 @@ Boidsアルゴリズムを使った鰯の群れをシミュレートする3Dラ�
 ※頂点データ・テクスチャをメモリ上に読み込むため、メモリを大量消費します。\n
 \n
 ★最新の変更履歴:\n
+jinbei3d (1.0.6) stable; urgency=low\n
+\n
+\t* Enable DITHER\n
+\t* Deleted extra processing.\n
+\n
+ -- Atsushi Konno <konno@qsdn.co.jp>  Wed, 10 Aug 2011 01:32:38 +0900\n
+\n
 jinbei3d (1.0.5) stable; urgency=low\n
 \n
 \t* Changed Max number of Sardines to 150\n

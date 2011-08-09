@@ -1,8 +1,9 @@
 jinbei3d (1.0.6) stable; urgency=low
 
   * Enable DITHER
+  * Deleted extra processing.
 
- -- Atsushi Konno <konno@qsdn.co.jp>  Sat, 06 Aug 2011 17:55:47 +0900
+ -- Atsushi Konno <konno@qsdn.co.jp>  Wed, 10 Aug 2011 01:32:38 +0900
 
 jinbei3d (1.0.5) stable; urgency=low
 
