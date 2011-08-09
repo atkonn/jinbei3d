@@ -628,10 +628,10 @@ public class Iwashi implements Model {
       mScratch4f_2[1] = schoolCenter[1] - getY();
       mScratch4f_2[2] = schoolCenter[2] - getZ();
       CoordUtil.normalize3fv(mScratch4f_2);
-      nextDirection[0] += mScratch4f_2[0];
-      nextDirection[1] += mScratch4f_2[1];
-      nextDirection[2] += mScratch4f_2[2];
-      nextDirectionCount++;
+      nextDirection[0] += (mScratch4f_2[0] * (float)COHESION_WEIGHT);
+      nextDirection[1] += (mScratch4f_2[1] * (float)COHESION_WEIGHT);
+      nextDirection[2] += (mScratch4f_2[2] * (float)COHESION_WEIGHT);
+      nextDirectionCount+=COHESION_WEIGHT;
     }
   }
 
