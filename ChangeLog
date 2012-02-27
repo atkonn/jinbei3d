@@ -1,3 +1,10 @@
+jinbei3d (1.0.7) stable; urgency=low
+
+  * Fixed BUG.
+    - glDrawArrays crash on Galaxy NEXUES.
+
+ -- konno <konno@qsdn.co.jp>  Tue, 28 Feb 2012 03:43:40 +0900
+
 jinbei3d (1.0.6) stable; urgency=low
 
   * Enable DITHER

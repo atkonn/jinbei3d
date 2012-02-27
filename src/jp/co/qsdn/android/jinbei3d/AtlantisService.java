@@ -279,7 +279,7 @@ public class AtlantisService extends WallpaperService {
               waitNano();
               continue;
             }
-            if (_debug) Log.d(TAG, "eglCreateContext done.");
+            if (_debug) Log.v(TAG, "eglCreateContext done.");
             /*-----------------------------------------------------------------*/
             /* 取得したEGLDisplayとEGLConfigでEGLSurface作成                   */
             /*-----------------------------------------------------------------*/
@@ -301,7 +301,7 @@ public class AtlantisService extends WallpaperService {
               waitNano();
               continue;
             }
-            if (_debug) Log.d(TAG, "eglCreateWindowSurface done.");
+            if (_debug) Log.v(TAG, "eglCreateWindowSurface done.");
             /*-----------------------------------------------------------------*/
             /* EGLContextとEGLSurfaceを関連付ける(アタッチ)                    */
             /*-----------------------------------------------------------------*/
@@ -309,7 +309,7 @@ public class AtlantisService extends WallpaperService {
               String errStr = AtlantisService.getErrorString(egl10.eglGetError());
               errStr += "egl10.eglMakeCurrent == false ";
               errStr += "specCounter:[" + (specCounter - 1) + "]";
-              if (_debug) Log.d(TAG, "egl10.eglMakeCurrent == false [" + errStr + "]");
+              if (_debug) Log.v(TAG, "egl10.eglMakeCurrent == false [" + errStr + "]");
               exitEgl();
               if (++counter >= AtlantisService.RETRY_COUNT) {
                 Log.e(TAG,"egl10.eglMakeCurrentがfalse");
@@ -317,25 +317,29 @@ public class AtlantisService extends WallpaperService {
                   + errStr + " :"
                 );
               }
-              if (_debug) Log.d(TAG,"RETRY");
+              if (_debug) Log.v(TAG,"RETRY");
               System.gc();
               waitNano();
               continue;
             }
             
-            if (_debug) Log.d(TAG, "eglMakeCurrent done.");
-            if (_debug) Log.d(TAG, "now create gl10 object");
+            if (_debug) Log.v(TAG, "eglMakeCurrent done.");
+            if (_debug) Log.v(TAG, "now create gl10 object");
   
             gl10 = new MatrixTrackingGL((GL10) (eglContext.getGL()));
+
+            if (_debug) Log.v(TAG, "new MatrixTrakingGL done");
    
             /*-----------------------------------------------------------------*/
             /* Rendererの初期化                                                */
             /*-----------------------------------------------------------------*/
             glRenderer = GLRenderer.getInstance(getApplicationContext());
+            if (_debug) Log.v(TAG, "GLRenderer.getInstance()");
             synchronized (glRenderer) {
               glRenderer.onSurfaceCreated(gl10, config, getApplicationContext());
+              if (_debug) Log.v(TAG, "GLRenderer.onSurfaceCreated()");
             }
-            if (_debug) Log.d(TAG, "EGL initalize done.");
+            if (_debug) Log.v(TAG, "EGL initalize done.");
             mInitialized = true;
             if (drawCommand == null) {
               drawCommand = new Runnable() {
@@ -343,6 +347,7 @@ public class AtlantisService extends WallpaperService {
                   doDrawCommand();
                 }
                 protected void doDrawCommand() {
+                  if (_debug) Log.v(TAG, ">>> doDrawCommand()");
                   if (mInitialized && glRenderer != null && gl10 != null) {
                     synchronized (glRenderer) {
                       long nowTime = System.nanoTime();
@@ -360,6 +365,7 @@ public class AtlantisService extends WallpaperService {
                       doExecute(drawCommand);
                     }
                   }
+                  if (_debug) Log.v(TAG, "<<< doDrawCommand()");
                 }
               };
               doExecute(drawCommand);

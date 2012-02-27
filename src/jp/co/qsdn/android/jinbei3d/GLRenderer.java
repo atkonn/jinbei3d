@@ -186,11 +186,14 @@ public class GLRenderer {
    * 光のセットアップ
    */
   public void setupLighting1(GL10 gl10) {
+    if (_debug) Log.v(TAG, ">>> setupLighting1");
     gl10.glEnable(GL10.GL_LIGHTING);
     gl10.glEnable(GL10.GL_LIGHT0);
     gl10.glEnable(GL10.GL_LIGHT1);
+    if (_debug) Log.v(TAG, "<<< setupLighting1");
   }
   public void setupLighting2(GL10 gl10) {
+    if (_debug) Log.v(TAG, ">>> setupLighting2");
     {
       /*=======================================================================*/
       /* 環境光の色設定                                                        */
@@ -302,13 +305,14 @@ public class GLRenderer {
       gl10.glLightf(GL10.GL_LIGHT1, GL10.GL_LINEAR_ATTENUATION, 0.002f);
       gl10.glLightf(GL10.GL_LIGHT1, GL10.GL_QUADRATIC_ATTENUATION, 0.0f);
     }
-
+    if (_debug) Log.v(TAG, "<<< setupLighting2");
   }
 
   /**
    * フォグのセットアップ
    */
   public void setupFog(GL10 gl10) {
+    if (_debug) Log.v(TAG, ">>> setupFog");
     gl10.glEnable(GL10.GL_FOG);
     gl10.glFogf(GL10.GL_FOG_MODE, GL10.GL_LINEAR);
     gl10.glFogf(GL10.GL_FOG_START, 7f + (cameraDistance - 5f));
@@ -321,8 +325,10 @@ public class GLRenderer {
       mScratch4f[3] = 1.0f;
       gl10.glFogfv(GL10.GL_FOG_COLOR, mScratch4f, 0);
     }
+    if (_debug) Log.v(TAG, "<<< setupFog");
   }
   public void setupFog2(GL10 gl10) {
+    if (_debug) Log.v(TAG, ">>> setupFog2");
     gl10.glEnable(GL10.GL_FOG);
     gl10.glFogf(GL10.GL_FOG_MODE, GL10.GL_LINEAR);
     gl10.glFogf(GL10.GL_FOG_START, cameraDistance + 1f);
@@ -335,6 +341,7 @@ public class GLRenderer {
       mScratch4f[3] = 1.0f;
       gl10.glFogfv(GL10.GL_FOG_COLOR, mScratch4f, 0);
     }
+    if (_debug) Log.v(TAG, "<<< setupFog2");
   }
 
   public void updateSetting(Context context) {
@@ -550,6 +557,7 @@ public class GLRenderer {
 
 
   public synchronized void onDrawFrame(GL10 gl10) {
+    if (_debug) Log.v(TAG, ">>> onDrawFrame");
     setupFog(gl10);
     gl10.glMatrixMode(GL10.GL_MODELVIEW);
     gl10.glPushMatrix(); 
@@ -611,7 +619,6 @@ public class GLRenderer {
     setupLighting1(gl10);
 
     gl10.glDisable(GL10.GL_DEPTH_TEST);
-
     jinbei.calc();
     synchronized (this) {
       for (int ii=0; ii<iwashi_count; ii++) {
@@ -645,6 +652,7 @@ public class GLRenderer {
     gl10.glPopMatrix(); 
             
     gl10.glPopMatrix();
+    if (_debug) Log.v(TAG, "<<< onDrawFrame");
   }
 
   public void onDestroy() {

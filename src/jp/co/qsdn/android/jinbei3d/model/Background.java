@@ -16,6 +16,15 @@
  */
 package jp.co.qsdn.android.jinbei3d.model;
 
+import android.content.Context;
+
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+
+import android.opengl.GLUtils;
+
+import android.util.Log;
+
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
@@ -23,17 +32,14 @@ import java.nio.IntBuffer;
 
 import javax.microedition.khronos.opengles.GL10;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.opengl.GLUtils;
-
 import jp.co.qsdn.android.jinbei3d.Aquarium;
 
 public class Background {
+  private final static boolean _debug = false;
   private final FloatBuffer mVertexBuffer;
   private final FloatBuffer mTextureBuffer;  
   private static boolean mTextureLoaded = false;
+  private final String TAG = getClass().getName();
 
   private float[] mScratch4f = new float[4];
 
@@ -121,6 +127,7 @@ public class Background {
   }
 
   public void draw(GL10 gl10) {
+    if (_debug) Log.v(TAG, ">>> draw");
     /*-----------------------------------------------------------------------*/
     /* 背景描画                                                              */
     /*-----------------------------------------------------------------------*/
@@ -170,6 +177,11 @@ public class Background {
     /*-----------------------------------------------------------------------*/
     /* 頂点描画                                                              */
     /*-----------------------------------------------------------------------*/
+
+    gl10.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+    gl10.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+    gl10.glDisableClientState(GL10.GL_COLOR_ARRAY);
+    gl10.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
     gl10.glColor4f(1,1,1,1);
     gl10.glNormal3f(0,0,1);
     gl10.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
@@ -184,5 +196,6 @@ public class Background {
     gl10.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
 
     gl10.glPopMatrix();
+    if (_debug) Log.v(TAG, "<<< draw");
   }
 }

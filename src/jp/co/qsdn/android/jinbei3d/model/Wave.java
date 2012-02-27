@@ -194,6 +194,11 @@ public class Wave {
     /*-----------------------------------------------------------------------*/
     /* 頂点描画                                                              */
     /*-----------------------------------------------------------------------*/
+    gl10.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+    gl10.glDisableClientState(GL10.GL_NORMAL_ARRAY);
+    gl10.glDisableClientState(GL10.GL_COLOR_ARRAY);
+    gl10.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
     gl10.glColor4f(1,1,1,1);
     gl10.glNormal3f(0,-1,0);
     gl10.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 0, 4);
