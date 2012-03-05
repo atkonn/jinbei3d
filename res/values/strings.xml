@@ -5,7 +5,7 @@
   <string name="service_name">Whale shark and sardines</string>
   <string name="description">3D live wallpaper that used BOIDS algorithm</string>
   <string name="author">QSDN,Inc.</string>
-  <string name="version">version 1.0.7</string>
+  <string name="version">version 1.0.8</string>
   <string name="copyright">Copyright (c) 2011 QSDN,Inc. All rights reserved.</string>
 
   <string name="setting_title">Settings</string>
@@ -61,6 +61,15 @@ Requirement:\n
 3) Over 3MB Heep memory area.\n
 \n
 Newly ChangeLog:\n
+jinbei3d (1.0.8) stable; urgency=low\n
+\n
+\t* Fixed texture failure BUG\n
+\t1) Sony Ericsson Xperia SO-01B(maybe P-02D)\n
+\t2) Samsung Galaxy NEXUS SC-04D\n
+\t3) Samsung Galaxy S SC-02B\n
+\n
+ -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Tue, 06 Mar 2012 01:57:05 +0900\n
+\n
 jinbei3d (1.0.7) stable; urgency=heigh\n
 \n
 \t* Fixed BUG.\n
@@ -82,14 +91,6 @@ jinbei3d (1.0.5) stable; urgency=low\n
 \t\t  speed and number of sardines.\n
 \n
  -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Thu, 04 Aug 2011 02:22:07 +0900\n
-\n
-jinbei3d (1.0.4) stable; urgency=low\n
-\n
-* Fixed Bug.
-\t1. I did not make the place that I should run again. Therefore it was crash.\n
-\t2. Memory more than required temporarily.\n
-\n
- -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Tue, 02 Aug 2011 02:10:39 +0900\n
 \n
 Copyright:\n
   * Copyright (c) 2011 QSDN,Inc. All right reserved.\n
