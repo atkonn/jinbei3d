@@ -10,14 +10,21 @@
     android:layout_height="wrap_content"
     android:text="@string/ads_title"
   />
-  <com.google.ads.AdView  
-    android:id="@+id/ad"  
+  <LinearLayout
+    android:id="@+id/admob"
     android:layout_width="fill_parent"
-    android:layout_height="70dip"
-    ads:adUnitId="a14e26b16708638"  
-    ads:adSize="BANNER"  
-    ads:loadAdOnCreate="true"
-  />  
+    android:layout_height="70dip">
+    <!--
+    <com.google.ads.AdView  
+      android:id="@+id/ad"  
+      android:layout_width="fill_parent"
+      android:layout_height="70dip"
+      ads:adUnitId="a14e26b16708638"  
+      ads:adSize="BANNER"  
+      ads:loadAdOnCreate="true"
+    />  
+    -->
+  </LinearLayout>
   <ListView
     android:id="@android:id/list"
     android:layout_width="fill_parent"

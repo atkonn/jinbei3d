@@ -1,3 +1,10 @@
+jinbei3d (1.0.9) stable; urgency=high
+
+  * Fixed BUG.
+    - Crash on HTC Desire(X06HT).
+
+ -- Atsushi Konno <konno@qsdn.co.jp>  Thu, 03 May 2012 01:23:39 +0900
+
 jinbei3d (1.0.8) stable; urgency=low
  
   * Fixed texture failure BUG

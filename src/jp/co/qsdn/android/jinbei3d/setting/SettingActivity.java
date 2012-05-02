@@ -33,10 +33,13 @@ import android.util.Log;
 import android.view.View;
 
 import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.google.ads.AdRequest;
 import com.google.ads.AdView;
+import com.google.ads.AdSize;
 
+import jp.co.qsdn.android.jinbei3d.Constant;
 import jp.co.qsdn.android.jinbei3d.R;
 
 
@@ -47,10 +50,11 @@ public class SettingActivity extends PreferenceActivity {
   @Override 
   protected void onResume() {
     super.onResume();
-    AdView adGoogle = (AdView)this.findViewById(R.id.ad);
-    AdRequest adr = new AdRequest();
+
+//    AdView adGoogle = (AdView)this.findViewById(R.id.ad);
+//    AdRequest adr = new AdRequest();
     //adr.addTestDevice("5BFE28B404218D908E6F404836E090E1");
-    adGoogle.loadAd(adr);
+//    adGoogle.loadAd(adr);
   }
   @Override
   public void onCreate(Bundle savedInstanceState) {
@@ -100,6 +104,13 @@ public class SettingActivity extends PreferenceActivity {
         }
       });
     }
+
+    AdView adView = new AdView(this, AdSize.BANNER, getResources().getString(R.string.admob_id));
+    LinearLayout layout = (LinearLayout) findViewById(R.id.admob);
+    layout.addView(adView);
+    AdRequest adRequest = new AdRequest();
+    adRequest.setTesting(Constant.DEBUG);
+    adView.loadAd(adRequest);
   }
 
   @Override

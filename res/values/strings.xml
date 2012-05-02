@@ -5,8 +5,10 @@
   <string name="service_name">Whale shark and sardines</string>
   <string name="description">3D live wallpaper that used BOIDS algorithm</string>
   <string name="author">QSDN,Inc.</string>
-  <string name="version">version 1.0.8</string>
+  <string name="version">version 1.0.9</string>
   <string name="copyright">Copyright (c) 2011 QSDN,Inc. All rights reserved.</string>
+
+  <string name="admob_id">a14e26b16708638</string>
 
   <string name="setting_title">Settings</string>
   <string name="key_preference_iwashi_count">iwashi_count</string>
@@ -61,6 +63,13 @@ Requirement:\n
 3) Over 3MB Heep memory area.\n
 \n
 Newly ChangeLog:\n
+jinbei3d (1.0.9) stable; urgency=high\n
+\n
+\t* Fixed BUG.\n
+\t1) Crash on HTC Desire(X06HT).\n
+\n
+ -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Thu, 03 May 2012 01:23:39 +0900\n
+\n
 jinbei3d (1.0.8) stable; urgency=low\n
 \n
 \t* Fixed texture failure BUG\n
