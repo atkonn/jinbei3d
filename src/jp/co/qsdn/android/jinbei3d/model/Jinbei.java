@@ -1816,6 +1816,7 @@ public class Jinbei implements Model {
   }
 
   public void draw(GL10 gl10) {
+    if (Constant.DEBUG)Log.v(TAG, ">>> draw()");
     gl10.glPushMatrix();
 
 
@@ -1878,6 +1879,7 @@ public class Jinbei implements Model {
 
     gl10.glPopMatrix();
     gl10.glPopMatrix();
+    if (Constant.DEBUG)Log.v(TAG, "<<< draw()");
   }
 
   public void update_speed() {
