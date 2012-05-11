@@ -2560,9 +2560,8 @@ public class Jinbei implements Model {
    *
    * @return x_angle as float.
    */
-  public float getX_angle()
-  {
-      return x_angle;
+  public float getX_angle() {
+    return x_angle;
   }
   
   /**
@@ -2570,9 +2569,8 @@ public class Jinbei implements Model {
    *
    * @param x_angle the value to set.
    */
-  public void setX_angle(float x_angle)
-  {
-      this.x_angle = x_angle;
+  public void setX_angle(float x_angle) {
+    this.x_angle = x_angle;
   }
   
   /**
@@ -2580,9 +2578,8 @@ public class Jinbei implements Model {
    *
    * @return y_angle as float.
    */
-  public float getY_angle()
-  {
-      return y_angle;
+  public float getY_angle() {
+    return y_angle;
   }
   
   /**
@@ -2590,9 +2587,8 @@ public class Jinbei implements Model {
    *
    * @param y_angle the value to set.
    */
-  public void setY_angle(float y_angle)
-  {
-      this.y_angle = y_angle;
+  public void setY_angle(float y_angle) {
+    this.y_angle = y_angle;
   }
   
   
@@ -2601,9 +2597,8 @@ public class Jinbei implements Model {
    *
    * @return baitManager as BaitManager.
    */
-  public BaitManager getBaitManager()
-  {
-      return baitManager;
+  public BaitManager getBaitManager() {
+    return baitManager;
   }
   
   /**
@@ -2611,9 +2606,8 @@ public class Jinbei implements Model {
    *
    * @param baitManager the value to set.
    */
-  public void setBaitManager(BaitManager baitManager)
-  {
-      this.baitManager = baitManager;
+  public void setBaitManager(BaitManager baitManager) {
+    this.baitManager = baitManager;
   }
   
   
@@ -2622,9 +2616,8 @@ public class Jinbei implements Model {
    *
    * @return enableBoids as boolean.
    */
-  public boolean getEnableBoids()
-  {
-      return enableBoids;
+  public boolean getEnableBoids() {
+    return enableBoids;
   }
   
   /**
@@ -2632,9 +2625,8 @@ public class Jinbei implements Model {
    *
    * @param enableBoids the value to set.
    */
-  public void setEnableBoids(boolean enableBoids)
-  {
-      this.enableBoids = enableBoids;
+  public void setEnableBoids(boolean enableBoids) {
+    this.enableBoids = enableBoids;
   }
   
   /**
@@ -2660,9 +2652,8 @@ public class Jinbei implements Model {
    *
    * @return size as float.
    */
-  public float getSize()
-  {
-      return size;
+  public float getSize() {
+    return size;
   }
   
   /**
@@ -2670,9 +2661,8 @@ public class Jinbei implements Model {
    *
    * @param size the value to set.
    */
-  public void setSize(float size)
-  {
-      this.size = size;
+  public void setSize(float size) {
+    this.size = size;
   }
   
   /**
@@ -2680,9 +2670,8 @@ public class Jinbei implements Model {
    *
    * @return jinbeiCount as int.
    */
-  public int getJinbeiCount()
-  {
-      return jinbeiCount;
+  public int getJinbeiCount() {
+    return jinbeiCount;
   }
   
   /**
@@ -2690,9 +2679,8 @@ public class Jinbei implements Model {
    *
    * @param jinbeiCount the value to set.
    */
-  public void setJinbeiCount(int jinbeiCount)
-  {
-      this.jinbeiCount = jinbeiCount;
+  public void setJinbeiCount(int jinbeiCount) {
+    this.jinbeiCount = jinbeiCount;
   }
   
   /**
@@ -2700,9 +2688,8 @@ public class Jinbei implements Model {
    *
    * @return distances as float[].
    */
-  public float[] getDistances()
-  {
-      return distances;
+  public float[] getDistances() {
+    return distances;
   }
   
   /**
@@ -2711,9 +2698,8 @@ public class Jinbei implements Model {
    * @param index the index.
    * @return distances at index as float.
    */
-  public float getDistances(int index)
-  {
-      return distances[index];
+  public float getDistances(int index) {
+    return distances[index];
   }
   
   /**
@@ -2721,9 +2707,8 @@ public class Jinbei implements Model {
    *
    * @param distances the value to set.
    */
-  public void setDistances(float[] distances)
-  {
-      this.distances = distances;
+  public void setDistances(float[] distances) {
+    this.distances = distances;
   }
   
   /**
@@ -2732,9 +2717,8 @@ public class Jinbei implements Model {
    * @param distances the value to set.
    * @param index the index.
    */
-  public void setDistances(float distances, int index)
-  {
-      this.distances[index] = distances;
+  public void setDistances(float distances, int index) {
+    this.distances[index] = distances;
   }
 
   public void separateBoundingBox() {
