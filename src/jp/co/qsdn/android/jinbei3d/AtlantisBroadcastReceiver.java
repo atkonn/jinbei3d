@@ -27,20 +27,19 @@ import android.app.WallpaperInfo;
 
 public class AtlantisBroadcastReceiver extends BroadcastReceiver {
   private static final String TAG = AtlantisBroadcastReceiver.class.getName();
-  private static final boolean _debug = true;
   @Override
   public void onReceive(Context context, Intent intent) {
-    if (_debug) Log.d(TAG,"start onReceive");
+    if (Constant.DEBUG) Log.d(TAG,"start onReceive");
     String action = intent.getAction();
 
     if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
-      if (_debug) Log.d(TAG,"ACTION_BOOT_COMPLETED受信");
+      if (Constant.DEBUG) Log.d(TAG,"ACTION_BOOT_COMPLETED受信");
       // 端末ブート完了時にアプリアイコンを置く
       if (isRunning(context)) {
         AtlantisNotification.putNotice(context);
       }
     }
-    if (_debug) Log.d(TAG,"end onReceive");
+    if (Constant.DEBUG) Log.d(TAG,"end onReceive");
   }
 
   protected boolean isRunning(Context context) {

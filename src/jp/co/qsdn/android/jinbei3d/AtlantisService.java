@@ -50,7 +50,6 @@ import jp.co.qsdn.android.jinbei3d.util.MatrixTrackingGL;
 
 public class AtlantisService extends WallpaperService {
   private static final String TAG = AtlantisService.class.getName();
-  private static final boolean _debug = false;
   private static final int RETRY_COUNT = 3;
 
   private class AtlantisEngine extends Engine {
@@ -104,7 +103,7 @@ public class AtlantisService extends WallpaperService {
     
     @Override
     public void onCreate(final SurfaceHolder holder) {
-      if (_debug) Log.d(TAG, "start onCreate() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "start onCreate() [" + this + "]");
       super.onCreate(holder);
       /*=====================================================================*/
       /* 携帯電話として機能しなくなるので                                    */
@@ -117,12 +116,12 @@ public class AtlantisService extends WallpaperService {
       if (! isPreview()) {
         AtlantisNotification.putNotice(AtlantisService.this);
       }
-      if (_debug) Log.d(TAG, "end onCreate() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "end onCreate() [" + this + "]");
     }
 
     @Override
     public void onDestroy() {
-      if (_debug) Log.d(TAG, "start onDestroy() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "start onDestroy() [" + this + "]");
       if (! isPreview()) {
         AtlantisNotification.removeNotice(getApplicationContext());
       }
@@ -130,7 +129,7 @@ public class AtlantisService extends WallpaperService {
       }
       super.onDestroy();
       System.gc();
-      if (_debug) Log.d(TAG, "end onDestroy() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "end onDestroy() [" + this + "]");
     }
 
     int[][] configSpec = {
@@ -166,7 +165,7 @@ public class AtlantisService extends WallpaperService {
     @Override
     public void onSurfaceCreated(final SurfaceHolder holder) {
 
-      if (_debug) Log.d(TAG, "start onSurfaceCreated() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "start onSurfaceCreated() [" + this + "]");
       super.onSurfaceCreated(holder);
       Runnable surfaceCreatedCommand = new Runnable() {
         @Override
@@ -175,7 +174,7 @@ public class AtlantisService extends WallpaperService {
         }
         protected void doSurfaceCreated() {
           if (mInitialized) {
-            if (_debug) Log.d(TAG, "already Initialized(surfaceCreatedCommand)");
+            if (Constant.DEBUG) Log.d(TAG, "already Initialized(surfaceCreatedCommand)");
             return;
           }
           boolean ret;
@@ -183,16 +182,16 @@ public class AtlantisService extends WallpaperService {
           int counter = 0;
           int specCounter = 0;
           while(true) {
-            if (_debug) Log.d(TAG, "start EGLContext.getEGL()");
+            if (Constant.DEBUG) Log.d(TAG, "start EGLContext.getEGL()");
             exitEgl();
             egl10 = (EGL10) EGLContext.getEGL();
-            if (_debug) Log.d(TAG, "end EGLContext.getEGL()");
-            if (_debug) Log.d(TAG, "start eglGetDisplay");
+            if (Constant.DEBUG) Log.d(TAG, "end EGLContext.getEGL()");
+            if (Constant.DEBUG) Log.d(TAG, "start eglGetDisplay");
             eglDisplay = egl10.eglGetDisplay(EGL10.EGL_DEFAULT_DISPLAY);
-            if (_debug) Log.d(TAG, "end eglGetDisplay");
+            if (Constant.DEBUG) Log.d(TAG, "end eglGetDisplay");
             if (eglDisplay == null || EGL10.EGL_NO_DISPLAY.equals(eglDisplay)) {
               String errStr = AtlantisService.getErrorString(egl10.eglGetError());
-              if (_debug) Log.d(TAG, "eglGetDisplayがEGL_NO_DISPLAY [" + errStr + "]");
+              if (Constant.DEBUG) Log.d(TAG, "eglGetDisplayがEGL_NO_DISPLAY [" + errStr + "]");
               exitEgl();
               if (++counter >= AtlantisService.RETRY_COUNT) {
                 Log.e(TAG, "egl10.eglCreateContextがEGL_NO_DISPLAY");
@@ -200,7 +199,7 @@ public class AtlantisService extends WallpaperService {
                   + errStr + ": "
                 );
               }     
-              if (_debug) Log.d(TAG, "RETRY");
+              if (Constant.DEBUG) Log.d(TAG, "RETRY");
               System.gc();
               waitNano();
               continue;
@@ -211,7 +210,7 @@ public class AtlantisService extends WallpaperService {
             int[] version = new int[2];
             if (! egl10.eglInitialize(eglDisplay, version)) {
               String errStr = AtlantisService.getErrorString(egl10.eglGetError());
-              if (_debug) Log.d(TAG, "egl10.eglInitializeがfalse [" + errStr + "]");
+              if (Constant.DEBUG) Log.d(TAG, "egl10.eglInitializeがfalse [" + errStr + "]");
               exitEgl();
               if (++counter >= AtlantisService.RETRY_COUNT) {
                 Log.e(TAG,"egl10.eglInitializeがfalse");
@@ -219,7 +218,7 @@ public class AtlantisService extends WallpaperService {
                   + errStr + ": "
                 );
               }
-              if (_debug) Log.d(TAG,"RETRY");
+              if (Constant.DEBUG) Log.d(TAG,"RETRY");
               System.gc();
               waitNano();
               continue;
@@ -236,7 +235,7 @@ public class AtlantisService extends WallpaperService {
             /* もしEGLConfigが取得できなければ                                 */
             /*-----------------------------------------------------------------*/
             if (numConfig[0] == 0) {
-              if (_debug) Log.d(TAG, "numConfig[0]=" + numConfig[0] + "");
+              if (Constant.DEBUG) Log.d(TAG, "numConfig[0]=" + numConfig[0] + "");
               String errStr = AtlantisService.getErrorString(egl10.eglGetError());
               errStr += " eglChooseConfig numConfig == 0 ";
               errStr += " numConfig:[" + numConfig[0] + "]";
@@ -250,7 +249,7 @@ public class AtlantisService extends WallpaperService {
                   + errStr + " :"
                 );
               }
-              if (_debug) Log.d(TAG, "RETRY");
+              if (Constant.DEBUG) Log.d(TAG, "RETRY");
               System.gc();
               waitNano();
               continue;
@@ -266,7 +265,7 @@ public class AtlantisService extends WallpaperService {
               String errStr = AtlantisService.getErrorString(egl10.eglGetError());
               errStr += "egl10.eglCreateContext == EGL_NO_CONTEXT ";
               errStr += "specCounter:[" + (specCounter - 1) + "]";
-              if (_debug) Log.d(TAG, "egl10.eglCreateContext == EGL_NO_CONTEXT [" + errStr + "]");
+              if (Constant.DEBUG) Log.d(TAG, "egl10.eglCreateContext == EGL_NO_CONTEXT [" + errStr + "]");
               exitEgl();
               if (++counter >= AtlantisService.RETRY_COUNT) {
                 Log.e(TAG, "egl10.eglCreateContextがEGL_NO_CONTEXT");
@@ -274,12 +273,12 @@ public class AtlantisService extends WallpaperService {
                   + errStr + " :"
                 );
               }
-              if (_debug) Log.d(TAG, "RETRY");
+              if (Constant.DEBUG) Log.d(TAG, "RETRY");
               System.gc();
               waitNano();
               continue;
             }
-            if (_debug) Log.v(TAG, "eglCreateContext done.");
+            if (Constant.DEBUG) Log.v(TAG, "eglCreateContext done.");
             /*-----------------------------------------------------------------*/
             /* 取得したEGLDisplayとEGLConfigでEGLSurface作成                   */
             /*-----------------------------------------------------------------*/
@@ -288,7 +287,7 @@ public class AtlantisService extends WallpaperService {
               String errStr = AtlantisService.getErrorString(egl10.eglGetError());
               errStr += "egl10.eglCreateWindowSurface == EGL_NO_SURFACE ";
               errStr += "specCounter:[" + (specCounter - 1) + "]";
-              if (_debug) Log.d(TAG, "egl10.eglCreateWindowSurface == EGL_NO_SURFACE [" + errStr + "]");
+              if (Constant.DEBUG) Log.d(TAG, "egl10.eglCreateWindowSurface == EGL_NO_SURFACE [" + errStr + "]");
               exitEgl();
               if (++counter >= AtlantisService.RETRY_COUNT) {
                 Log.e(TAG, "egl10.eglCreateWindowSurfaceがEGL_NO_SURFACE");
@@ -296,12 +295,12 @@ public class AtlantisService extends WallpaperService {
                   + errStr + " :"
                 );
               }
-              if (_debug) Log.e(TAG, "RETRY");
+              if (Constant.DEBUG) Log.e(TAG, "RETRY");
               System.gc();
               waitNano();
               continue;
             }
-            if (_debug) Log.v(TAG, "eglCreateWindowSurface done.");
+            if (Constant.DEBUG) Log.v(TAG, "eglCreateWindowSurface done.");
             /*-----------------------------------------------------------------*/
             /* EGLContextとEGLSurfaceを関連付ける(アタッチ)                    */
             /*-----------------------------------------------------------------*/
@@ -309,7 +308,7 @@ public class AtlantisService extends WallpaperService {
               String errStr = AtlantisService.getErrorString(egl10.eglGetError());
               errStr += "egl10.eglMakeCurrent == false ";
               errStr += "specCounter:[" + (specCounter - 1) + "]";
-              if (_debug) Log.v(TAG, "egl10.eglMakeCurrent == false [" + errStr + "]");
+              if (Constant.DEBUG) Log.v(TAG, "egl10.eglMakeCurrent == false [" + errStr + "]");
               exitEgl();
               if (++counter >= AtlantisService.RETRY_COUNT) {
                 Log.e(TAG,"egl10.eglMakeCurrentがfalse");
@@ -317,29 +316,29 @@ public class AtlantisService extends WallpaperService {
                   + errStr + " :"
                 );
               }
-              if (_debug) Log.v(TAG,"RETRY");
+              if (Constant.DEBUG) Log.v(TAG,"RETRY");
               System.gc();
               waitNano();
               continue;
             }
             
-            if (_debug) Log.v(TAG, "eglMakeCurrent done.");
-            if (_debug) Log.v(TAG, "now create gl10 object");
+            if (Constant.DEBUG) Log.v(TAG, "eglMakeCurrent done.");
+            if (Constant.DEBUG) Log.v(TAG, "now create gl10 object");
   
             gl10 = new MatrixTrackingGL((GL10) (eglContext.getGL()));
 
-            if (_debug) Log.v(TAG, "new MatrixTrakingGL done");
+            if (Constant.DEBUG) Log.v(TAG, "new MatrixTrakingGL done");
    
             /*-----------------------------------------------------------------*/
             /* Rendererの初期化                                                */
             /*-----------------------------------------------------------------*/
             glRenderer = GLRenderer.getInstance(getApplicationContext());
-            if (_debug) Log.v(TAG, "GLRenderer.getInstance()");
+            if (Constant.DEBUG) Log.v(TAG, "GLRenderer.getInstance()");
             synchronized (glRenderer) {
               glRenderer.onSurfaceCreated(gl10, config, getApplicationContext());
-              if (_debug) Log.v(TAG, "GLRenderer.onSurfaceCreated()");
+              if (Constant.DEBUG) Log.v(TAG, "GLRenderer.onSurfaceCreated()");
             }
-            if (_debug) Log.v(TAG, "EGL initalize done.");
+            if (Constant.DEBUG) Log.v(TAG, "EGL initalize done.");
             mInitialized = true;
             if (drawCommand == null) {
               drawCommand = new Runnable() {
@@ -347,7 +346,7 @@ public class AtlantisService extends WallpaperService {
                   doDrawCommand();
                 }
                 protected void doDrawCommand() {
-                  if (_debug) Log.v(TAG, ">>> doDrawCommand()");
+                  if (Constant.DEBUG) Log.v(TAG, ">>> doDrawCommand()");
                   if (mInitialized && glRenderer != null && gl10 != null) {
                     synchronized (glRenderer) {
                       long nowTime = System.nanoTime();
@@ -365,7 +364,7 @@ public class AtlantisService extends WallpaperService {
                       doExecute(drawCommand);
                     }
                   }
-                  if (_debug) Log.v(TAG, "<<< doDrawCommand()");
+                  if (Constant.DEBUG) Log.v(TAG, "<<< doDrawCommand()");
                 }
               };
               doExecute(drawCommand);
@@ -375,12 +374,12 @@ public class AtlantisService extends WallpaperService {
         }
       };
       doExecute(surfaceCreatedCommand);
-      if (_debug) Log.d(TAG, "end onSurfaceCreated() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "end onSurfaceCreated() [" + this + "]");
     }
 
     @Override
     public void onSurfaceDestroyed(final SurfaceHolder holder) {
-      if (_debug) Log.d(TAG, "start onSurfaceDestroyed() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "start onSurfaceDestroyed() [" + this + "]");
       Runnable surfaceDestroyedCommand = new Runnable() {
         @Override
         public void run() {
@@ -404,7 +403,7 @@ public class AtlantisService extends WallpaperService {
         if (!getExecutor().awaitTermination(60, TimeUnit.SECONDS)) {
           getExecutor().shutdownNow();
           if (!getExecutor().awaitTermination(60, TimeUnit.SECONDS)) {
-            if (_debug) Log.d(TAG,"ExecutorService did not terminate....");
+            if (Constant.DEBUG) Log.d(TAG,"ExecutorService did not terminate....");
             getExecutor().shutdownNow();
             Thread.currentThread().interrupt();
           }
@@ -415,12 +414,12 @@ public class AtlantisService extends WallpaperService {
       }
       drawCommand = null;
       super.onSurfaceDestroyed(holder);
-      if (_debug) Log.d(TAG, "end onSurfaceDestroyed() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "end onSurfaceDestroyed() [" + this + "]");
     }
 
     @Override
     public void onSurfaceChanged(final SurfaceHolder holder, final int format, final int width, final int height) {
-      if (_debug) Log.d(TAG, "start onSurfaceChanged() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "start onSurfaceChanged() [" + this + "]");
       super.onSurfaceChanged(holder, format, width, height);
       this.width = width;
       this.height = height;
@@ -437,12 +436,12 @@ public class AtlantisService extends WallpaperService {
         };
       };
       doExecute(surfaceChangedCommand);
-      if (_debug) Log.d(TAG, "end onSurfaceChanged() [" + this + "]");
+      if (Constant.DEBUG) Log.d(TAG, "end onSurfaceChanged() [" + this + "]");
     }
  
     @Override
     public void onVisibilityChanged(final boolean visible) {
-      if (_debug) Log.d(TAG, "start onVisibilityChanged()");
+      if (Constant.DEBUG) Log.d(TAG, "start onVisibilityChanged()");
       super.onVisibilityChanged(visible);
       /* サーフェスが見えるようになったよ！ */
       if (visible && drawCommand != null && mInitialized) {
@@ -454,17 +453,17 @@ public class AtlantisService extends WallpaperService {
         }
         doExecute(drawCommand);
       }
-      if (_debug) Log.d(TAG, "end onVisibilityChanged()");
+      if (Constant.DEBUG) Log.d(TAG, "end onVisibilityChanged()");
     }
 
     @Override
     public void onOffsetsChanged(final float xOffset, final float yOffset,
                                  final float xOffsetStep, final float yOffsetStep,
                                  final int xPixelOffset, final int yPixelOffset) {
-      if (_debug) Log.d(TAG, "start onOffsetsChanged()");
+      if (Constant.DEBUG) Log.d(TAG, "start onOffsetsChanged()");
       super.onOffsetsChanged(xOffset, yOffset, xOffsetStep, yOffsetStep, xPixelOffset, yPixelOffset);
       if (xOffsetStep == 0.0f && yOffsetStep == 0.0f) {
-        if (_debug) Log.d(TAG, "end onOffsetChanged() no execute");
+        if (Constant.DEBUG) Log.d(TAG, "end onOffsetChanged() no execute");
         return;
       }
       Runnable offsetsChangedCommand = new Runnable() {
@@ -480,12 +479,12 @@ public class AtlantisService extends WallpaperService {
         };
       };
       doExecute(offsetsChangedCommand);
-      if (_debug) Log.d(TAG, "end onOffsetChanged()");
+      if (Constant.DEBUG) Log.d(TAG, "end onOffsetChanged()");
     }
     
     @Override  
     public Bundle onCommand(final String action, final int x, final int y, final int z, final Bundle extras, final boolean resultRequested){
-      if (_debug) {
+      if (Constant.DEBUG) {
         Log.d(TAG, "start onCommand "
           + "action:[" + action + "]:"
           + "x:[" + x + "]:"
@@ -515,11 +514,11 @@ public class AtlantisService extends WallpaperService {
          doExecute(onCommandCommand);
       }  
       Bundle ret = super.onCommand(action, x, y, z, extras, resultRequested);
-      if (_debug) Log.d(TAG, "end onCommand");
+      if (Constant.DEBUG) Log.d(TAG, "end onCommand");
       return ret;
     }  
     public void exitEgl() {
-      if (_debug) Log.d(TAG, "start exitEgl");
+      if (Constant.DEBUG) Log.d(TAG, "start exitEgl");
       if (egl10 != null) {
         if (eglDisplay != null && ! eglDisplay.equals(EGL10.EGL_NO_DISPLAY)) {
           if (! egl10.eglMakeCurrent(eglDisplay, EGL10.EGL_NO_SURFACE,
@@ -547,25 +546,25 @@ public class AtlantisService extends WallpaperService {
         }
         egl10 = null;
       }
-      if (_debug) Log.d(TAG, "end exitEgl");
+      if (Constant.DEBUG) Log.d(TAG, "end exitEgl");
     }
   }
   @Override
   public Engine onCreateEngine() {
-    if (_debug) Log.d(TAG, "start onCreateEngine()");
+    if (Constant.DEBUG) Log.d(TAG, "start onCreateEngine()");
     AtlantisEngine engine = new AtlantisEngine();
-    if (_debug) Log.d(TAG, "engine:[" + engine + "]");
-    if (_debug) Log.d(TAG, "end onCreateEngine()");
+    if (Constant.DEBUG) Log.d(TAG, "engine:[" + engine + "]");
+    if (Constant.DEBUG) Log.d(TAG, "end onCreateEngine()");
     return engine;
   }
 
   public void waitNano() {
-    if (_debug) Log.d(TAG, "start waitNano");
+    if (Constant.DEBUG) Log.d(TAG, "start waitNano");
     try { 
       TimeUnit.SECONDS.sleep(1);
     } catch (InterruptedException e) {
     }
-    if (_debug) Log.d(TAG, "end waitNano");
+    if (Constant.DEBUG) Log.d(TAG, "end waitNano");
   }
 
   public static String getErrorString(int err) {

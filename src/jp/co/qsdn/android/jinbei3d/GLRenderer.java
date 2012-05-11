@@ -48,7 +48,6 @@ import jp.co.qsdn.android.jinbei3d.setting.Prefs;
 import jp.co.qsdn.android.jinbei3d.util.CoordUtil;
 
 public class GLRenderer {
-  private static final boolean _debug = false;
   private static final String TAG = GLRenderer.class.getName();
   public static final int MAX_IWASHI_COUNT = 150;
   private final Background background = new Background();
@@ -113,17 +112,17 @@ public class GLRenderer {
   }
   
   public static GLRenderer getInstance(Context context) {
-    if (_debug) Log.d(TAG, "start getInstance()");
+    if (Constant.DEBUG) Log.d(TAG, "start getInstance()");
     if (glRenderer == null) {
-      if (_debug) Log.d(TAG, "new GLRenderer");
+      if (Constant.DEBUG) Log.d(TAG, "new GLRenderer");
       glRenderer = new GLRenderer(context);
     }
-    if (_debug) Log.d(TAG, "end getInstance()");
+    if (Constant.DEBUG) Log.d(TAG, "end getInstance()");
     return glRenderer;
   }
 
   public void onSurfaceCreated(GL10 gl10, EGLConfig eglConfig, Context context) {
-    if (_debug) Log.d(TAG, "start onSurfaceCreated()");
+    if (Constant.DEBUG) Log.d(TAG, "start onSurfaceCreated()");
     gl10.glEnable(GL10.GL_DEPTH_TEST);
     gl10.glDepthFunc(GL10.GL_LEQUAL);
 
@@ -172,7 +171,7 @@ public class GLRenderer {
     gl10.glClearDepthf(1.0f);
 
 
-    if (_debug) Log.d(TAG, "end onSurfaceCreated()");
+    if (Constant.DEBUG) Log.d(TAG, "end onSurfaceCreated()");
   }
 
   public void onSurfaceDestroyed(GL10 gl10) {
@@ -186,14 +185,14 @@ public class GLRenderer {
    * 光のセットアップ
    */
   public void setupLighting1(GL10 gl10) {
-    if (_debug) Log.v(TAG, ">>> setupLighting1");
+    if (Constant.DEBUG) Log.v(TAG, ">>> setupLighting1");
     gl10.glEnable(GL10.GL_LIGHTING);
     gl10.glEnable(GL10.GL_LIGHT0);
     gl10.glEnable(GL10.GL_LIGHT1);
-    if (_debug) Log.v(TAG, "<<< setupLighting1");
+    if (Constant.DEBUG) Log.v(TAG, "<<< setupLighting1");
   }
   public void setupLighting2(GL10 gl10) {
-    if (_debug) Log.v(TAG, ">>> setupLighting2");
+    if (Constant.DEBUG) Log.v(TAG, ">>> setupLighting2");
     {
       /*=======================================================================*/
       /* 環境光の色設定                                                        */
@@ -305,14 +304,14 @@ public class GLRenderer {
       gl10.glLightf(GL10.GL_LIGHT1, GL10.GL_LINEAR_ATTENUATION, 0.002f);
       gl10.glLightf(GL10.GL_LIGHT1, GL10.GL_QUADRATIC_ATTENUATION, 0.0f);
     }
-    if (_debug) Log.v(TAG, "<<< setupLighting2");
+    if (Constant.DEBUG) Log.v(TAG, "<<< setupLighting2");
   }
 
   /**
    * フォグのセットアップ
    */
   public void setupFog(GL10 gl10) {
-    if (_debug) Log.v(TAG, ">>> setupFog");
+    if (Constant.DEBUG) Log.v(TAG, ">>> setupFog");
     gl10.glEnable(GL10.GL_FOG);
     gl10.glFogf(GL10.GL_FOG_MODE, GL10.GL_LINEAR);
     gl10.glFogf(GL10.GL_FOG_START, 7f + (cameraDistance - 5f));
@@ -325,10 +324,10 @@ public class GLRenderer {
       mScratch4f[3] = 1.0f;
       gl10.glFogfv(GL10.GL_FOG_COLOR, mScratch4f, 0);
     }
-    if (_debug) Log.v(TAG, "<<< setupFog");
+    if (Constant.DEBUG) Log.v(TAG, "<<< setupFog");
   }
   public void setupFog2(GL10 gl10) {
-    if (_debug) Log.v(TAG, ">>> setupFog2");
+    if (Constant.DEBUG) Log.v(TAG, ">>> setupFog2");
     gl10.glEnable(GL10.GL_FOG);
     gl10.glFogf(GL10.GL_FOG_MODE, GL10.GL_LINEAR);
     gl10.glFogf(GL10.GL_FOG_START, cameraDistance + 1f);
@@ -341,7 +340,7 @@ public class GLRenderer {
       mScratch4f[3] = 1.0f;
       gl10.glFogfv(GL10.GL_FOG_COLOR, mScratch4f, 0);
     }
-    if (_debug) Log.v(TAG, "<<< setupFog2");
+    if (Constant.DEBUG) Log.v(TAG, "<<< setupFog2");
   }
 
   public void updateSetting(Context context) {
@@ -354,9 +353,9 @@ public class GLRenderer {
     boolean _iwashi_boids = Prefs.getInstance(context).getIwashiBoids();
     int _camera_mode = Prefs.getInstance(context).getCameraMode();
     float _camera_distance = (float)Prefs.getInstance(context).getCameraDistance();
-    if (_debug) Log.d(TAG, "現在のスピード:[" + _iwashi_speed + "]");
+    if (Constant.DEBUG) Log.d(TAG, "現在のスピード:[" + _iwashi_speed + "]");
 
-    if (_debug) Log.d(TAG,"現在のBOIDS:[" + _iwashi_boids + "]");
+    if (Constant.DEBUG) Log.d(TAG,"現在のBOIDS:[" + _iwashi_boids + "]");
 
     if (_iwashi_count != iwashi_count) {
       synchronized (this) {
@@ -406,7 +405,7 @@ public class GLRenderer {
   private int screen_width =0;
   private int screen_height = 0;
   public void onSurfaceChanged(GL10 gl10, int width, int height) {
-    if (_debug) Log.d(TAG, "start onSurfaceChanged()");
+    if (Constant.DEBUG) Log.d(TAG, "start onSurfaceChanged()");
     gl10.glViewport(0,0,width,height);
     gl10.glMatrixMode(GL10.GL_PROJECTION);
     gl10.glLoadIdentity();
@@ -415,13 +414,13 @@ public class GLRenderer {
     this.screen_width = width;
     this.screen_height = height;
 
-    if (_debug) Log.d(TAG, "end onSurfaceChanged()"); 
+    if (Constant.DEBUG) Log.d(TAG, "end onSurfaceChanged()"); 
   }
   public void onOffsetsChanged(GL10 gl10, float xOffset, float yOffset,
                                float xOffsetStep, float yOffsetStep,
                                int xPixelOffset, int yPixelOffset) {
-    if (_debug) Log.d(TAG, "start onOffsetsChanged()");
-    if (_debug) {
+    if (Constant.DEBUG) Log.d(TAG, "start onOffsetsChanged()");
+    if (Constant.DEBUG) {
       Log.d(TAG,
           "xOffset:[" + xOffset + "]:"
         + "yOffset:[" + yOffset + "]:"
@@ -434,7 +433,7 @@ public class GLRenderer {
       float xx = (float)xPixelOffset / 480f;
       baseAngle = xx * 180f + 90f;
     }
-    if (_debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, 
           "end onOffsetsChanged():" 
         + "new baseAngle:[" + baseAngle + "]"
@@ -443,7 +442,7 @@ public class GLRenderer {
   }
 
   public void onCommand(GL10 gl10, String action, int x, int y, int z, Bundle extras, boolean resultRequested) {
-    if (_debug) Log.d(TAG, "start onCommand");
+    if (Constant.DEBUG) Log.d(TAG, "start onCommand");
     if (cameraMode == R.id.radio1 || cameraMode == R.id.radio2) {
       /* 鰯視点モード/ジンベイザメ視点モードのため、何もしない */
       return ;
@@ -484,14 +483,14 @@ public class GLRenderer {
       }
       
       GLU.gluUnProject((float)x, (float)y, dist_from_camera, view, 0, projection, 0, new int[]{0, 0, screen_width, screen_height}, 0, ret, 0);
-      if (_debug) Log.d(TAG,"変換結果(UnProject):[" + ret[0] + "][" + ret[1] + "][" + ret[2] + "][" + ret[3] + "]");
+      if (Constant.DEBUG) Log.d(TAG,"変換結果(UnProject):[" + ret[0] + "][" + ret[1] + "][" + ret[2] + "][" + ret[3] + "]");
       {
         float bb = (cameraDistance == 0.0f) ? 0.1f : cameraDistance;
         nx = ret[0] * bb / ret[3];
         ny = ret[1] * -bb / ret[3];
         nz = ret[2] / ret[3];
       }
-      if (_debug) {
+      if (Constant.DEBUG) {
         Log.d(TAG,"変換結果"
          + "dist:[" + dist_from_camera + "] "
          + "x:[" + nx + "] "
@@ -552,12 +551,12 @@ public class GLRenderer {
     baitManager.addBait(nx,ny,nz);
 
 
-    if (_debug) Log.d(TAG, "end onCommand");
+    if (Constant.DEBUG) Log.d(TAG, "end onCommand");
   }
 
 
   public synchronized void onDrawFrame(GL10 gl10) {
-    if (_debug) Log.v(TAG, ">>> onDrawFrame");
+    if (Constant.DEBUG) Log.v(TAG, ">>> onDrawFrame");
     setupFog(gl10);
     gl10.glMatrixMode(GL10.GL_MODELVIEW);
     gl10.glPushMatrix(); 
@@ -652,7 +651,7 @@ public class GLRenderer {
     gl10.glPopMatrix(); 
             
     gl10.glPopMatrix();
-    if (_debug) Log.v(TAG, "<<< onDrawFrame");
+    if (Constant.DEBUG) Log.v(TAG, "<<< onDrawFrame");
   }
 
   public void onDestroy() {

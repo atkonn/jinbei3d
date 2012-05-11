@@ -39,10 +39,10 @@ import jp.co.qsdn.android.jinbei3d.Bait;
 import jp.co.qsdn.android.jinbei3d.BaitManager;
 import jp.co.qsdn.android.jinbei3d.GLRenderer;
 import jp.co.qsdn.android.jinbei3d.util.CoordUtil;
+import jp.co.qsdn.android.jinbei3d.Constant;
 
 public class Jinbei implements Model {
   private static final boolean traceBOIDS = false;
-  private static final boolean debug = false;
   private static final String TAG = Jinbei.class.getName();
   private static final long BASE_TICK = 17852783L;
   private static boolean mTextureLoaded = false;
@@ -2054,7 +2054,7 @@ public class Jinbei implements Model {
     }
   }
   public void turnSeparation(Jinbei target) {
-    if (debug) { Log.d(TAG, "start turnSeparation"); }
+    if (Constant.DEBUG) { Log.d(TAG, "start turnSeparation"); }
     float v_x = 0f;
     float v_y = 0f;
     float v_z = 0f;
@@ -2098,7 +2098,7 @@ public class Jinbei implements Model {
       v_y = mScratch4f_1[1];
       v_z = mScratch4f_1[2];
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向"
        + " x:[" + v_x + "]:"
        + " y:[" + v_y + "]:"
@@ -2115,14 +2115,14 @@ public class Jinbei implements Model {
     if ((angle_x < 0.0f && v_y > 0.0f) || (angle_x > 0.0f && v_y < 0.0f)) {
       angle_x *= -1f;
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向のangle_y:[" + angle_y + "]");
       Log.d(TAG, "向かいたい方向のangle_x:[" + angle_x + "]");
     }
 
     /* その角度へ近づける */
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "実際に向かう方向のy_angle:[" + y_angle + "]");
       Log.d(TAG, "実際に向かう方向のx_angle:[" + x_angle + "]");
     }
@@ -2139,7 +2139,7 @@ public class Jinbei implements Model {
         direction[2] = mScratch4f_2[2];
       }
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "結果的に向かう方向"
        + " x:[" + direction[0] + "]:"
        + " y:[" + direction[1] + "]:"
@@ -2148,20 +2148,20 @@ public class Jinbei implements Model {
     }
   }
   public void turnAlignment(Jinbei target) {
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "start turnAlignment");
     }
     /* ターゲットの角度 */
     float angle_x = target.getX_angle();
     float angle_y = target.getY_angle();
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向のangle_y:[" + angle_y + "]");
       Log.d(TAG, "向かいたい方向のangle_x:[" + angle_x + "]");
     }
 
     /* その角度へ近づける */
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "実際に向かう方向のy_angle:[" + y_angle + "]");
       Log.d(TAG, "実際に向かう方向のx_angle:[" + x_angle + "]");
     }
@@ -2178,7 +2178,7 @@ public class Jinbei implements Model {
         direction[2] = mScratch4f_2[2];
       }
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "結果的に向かう方向"
        + " x:[" + direction[0] + "]:"
        + " y:[" + direction[1] + "]:"
@@ -2188,12 +2188,12 @@ public class Jinbei implements Model {
     /* スピードも合わせる */
     aimTargetSpeed(target.getSpeed());
 
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "end turnAlignment");
     }
   }
   public void turnCohesion(Jinbei target) {
-    if (debug) { Log.d(TAG, "start turnCohesion"); }
+    if (Constant.DEBUG) { Log.d(TAG, "start turnCohesion"); }
     float v_x = 0f;
     float v_y = 0f;
     float v_z = 0f;
@@ -2237,7 +2237,7 @@ public class Jinbei implements Model {
       v_y = mScratch4f_1[1];
       v_z = mScratch4f_1[2];
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向"
        + " x:[" + v_x + "]:"
        + " y:[" + v_y + "]:"
@@ -2255,14 +2255,14 @@ public class Jinbei implements Model {
     if ((angle_x < 0.0f && v_y > 0.0f) || (angle_x > 0.0f && v_y < 0.0f)) {
       angle_x *= -1f;
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向のangle_y:[" + angle_y + "]");
       Log.d(TAG, "向かいたい方向のangle_x:[" + angle_x + "]");
     }
 
     /* その角度へ近づける */
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "実際に向かう方向のy_angle:[" + y_angle + "]");
       Log.d(TAG, "実際に向かう方向のx_angle:[" + x_angle + "]");
     }
@@ -2279,7 +2279,7 @@ public class Jinbei implements Model {
         direction[2] = mScratch4f_2[2];
       }
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "結果的に向かう方向"
        + " x:[" + direction[0] + "]:"
        + " y:[" + direction[1] + "]:"
@@ -2292,7 +2292,7 @@ public class Jinbei implements Model {
    * 強制的に水槽の中心へ徐々に向ける
    */
   public void aimAquariumCenter() {
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "start aimAquariumCenter ");
     }
     float v_x = (Aquarium.center[0] - getX());
@@ -2328,7 +2328,7 @@ public class Jinbei implements Model {
     if ((angle_x < 0.0f && v_y > 0.0f) || (angle_x > 0.0f && v_y < 0.0f)) {
       angle_x *= -1f;
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向のangle_y:[" + angle_y + "]");
       Log.d(TAG, "向かいたい方向のangle_x:[" + angle_x + "]");
     }
@@ -2340,7 +2340,7 @@ public class Jinbei implements Model {
 
     /* その角度へ近づける */
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "実際に向かう方向のy_angle:[" + y_angle + "]");
       Log.d(TAG, "実際に向かう方向のx_angle:[" + x_angle + "]");
     }
@@ -2356,7 +2356,7 @@ public class Jinbei implements Model {
         direction[2] = mScratch4f_2[2];
       }
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "end aimAquariumCenter "
         + "x:[" + direction[0] + "]:"
         + "y:[" + direction[1] + "]:"
@@ -2364,7 +2364,7 @@ public class Jinbei implements Model {
     }
   }
   public boolean aimBait(Bait bait) {
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "start aimBait ");
     }
     double dist = Math.sqrt(
@@ -2378,7 +2378,7 @@ public class Jinbei implements Model {
     float v_x = (bait.getX() - getX());
     float v_y = (bait.getY() - getY());
     float v_z = (bait.getZ() - getZ());
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向"
        + " x:[" + v_x + "]:"
        + " y:[" + v_y + "]:"
@@ -2395,14 +2395,14 @@ public class Jinbei implements Model {
     if ((angle_x < 0.0f && v_y > 0.0f) || (angle_x > 0.0f && v_y < 0.0f)) {
       angle_x *= -1f;
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "向かいたい方向のangle_y:[" + angle_y + "]");
       Log.d(TAG, "向かいたい方向のangle_x:[" + angle_x + "]");
     }
 
     /* その角度へ近づける */
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "実際に向かう方向のy_angle:[" + y_angle + "]");
       Log.d(TAG, "実際に向かう方向のx_angle:[" + x_angle + "]");
     }
@@ -2418,7 +2418,7 @@ public class Jinbei implements Model {
         direction[2] = mScratch4f_2[2];
       }
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "end aimBait "
         + "x:[" + direction[0] + "]:"
         + "y:[" + direction[1] + "]:"
@@ -2459,7 +2459,7 @@ public class Jinbei implements Model {
     else {
       setZ(getZ() + getDirectionZ() * moveWidth);
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "end move "
         + "dx:[" + getDirectionX() + "]:"
         + "dy:[" + getDirectionY() + "]:"
@@ -2925,9 +2925,8 @@ public class Jinbei implements Model {
    *
    * @return turnDirection as TURN_DIRECTION.
    */
-  public TURN_DIRECTION getTurnDirection()
-  {
-      return turnDirection;
+  public TURN_DIRECTION getTurnDirection() {
+    return turnDirection;
   }
   
   /**
@@ -2935,8 +2934,7 @@ public class Jinbei implements Model {
    *
    * @param turnDirection the value to set.
    */
-  public void setTurnDirection(TURN_DIRECTION turnDirection)
-  {
-      this.turnDirection = turnDirection;
+  public void setTurnDirection(TURN_DIRECTION turnDirection) {
+    this.turnDirection = turnDirection;
   }
 }

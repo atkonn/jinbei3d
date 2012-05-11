@@ -33,9 +33,9 @@ import java.nio.IntBuffer;
 import javax.microedition.khronos.opengles.GL10;
 
 import jp.co.qsdn.android.jinbei3d.Aquarium;
+import jp.co.qsdn.android.jinbei3d.Constant;
 
 public class Background {
-  private final static boolean _debug = false;
   private final FloatBuffer mVertexBuffer;
   private final FloatBuffer mTextureBuffer;  
   private static boolean mTextureLoaded = false;
@@ -127,7 +127,7 @@ public class Background {
   }
 
   public void draw(GL10 gl10) {
-    if (_debug) Log.v(TAG, ">>> draw");
+    if (Constant.DEBUG) Log.v(TAG, ">>> draw");
     /*-----------------------------------------------------------------------*/
     /* 背景描画                                                              */
     /*-----------------------------------------------------------------------*/
@@ -196,6 +196,6 @@ public class Background {
     gl10.glDrawArrays(GL10.GL_TRIANGLE_STRIP, 12, 4);
 
     gl10.glPopMatrix();
-    if (_debug) Log.v(TAG, "<<< draw");
+    if (Constant.DEBUG) Log.v(TAG, "<<< draw");
   }
 }

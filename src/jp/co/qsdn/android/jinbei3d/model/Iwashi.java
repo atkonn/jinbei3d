@@ -37,12 +37,12 @@ import javax.microedition.khronos.opengles.GL10;
 import jp.co.qsdn.android.jinbei3d.Aquarium;
 import jp.co.qsdn.android.jinbei3d.Bait;
 import jp.co.qsdn.android.jinbei3d.BaitManager;
+import jp.co.qsdn.android.jinbei3d.Constant;
 import jp.co.qsdn.android.jinbei3d.GLRenderer;
 import jp.co.qsdn.android.jinbei3d.util.CoordUtil;
 
 public class Iwashi implements Model {
   private static final boolean traceBOIDS = false;
-  private static final boolean debug = false;
   private static final String TAG = Iwashi.class.getName();
   private static final long BASE_TICK = 15136719L;
   private static boolean mTextureLoaded = false;
@@ -483,7 +483,7 @@ public class Iwashi implements Model {
     angle_y = angle_y % 360f;
 
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "now y_angle:[" + y_angle + "]");
       Log.d(TAG, "now x_angle:[" + x_angle + "]");
     }
@@ -540,7 +540,7 @@ public class Iwashi implements Model {
       v_y = mScratch4f_2[1];
       v_z = mScratch4f_2[2];
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "Direction"
        + " x:[" + v_x + "]:"
        + " y:[" + v_y + "]:"
@@ -586,7 +586,7 @@ public class Iwashi implements Model {
     float angle_x = target.getX_angle();
     float angle_y = target.getY_angle();
 
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "candidate angle_y:[" + angle_y + "]");
       Log.d(TAG, "candidate angle_x:[" + angle_x + "]");
     }
@@ -740,7 +740,7 @@ public class Iwashi implements Model {
    * The disposal of to the center aquarium
    */
   public void aimAquariumCenter() {
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "start aimAquariumCenter ");
     }
     float v_x = (Aquarium.center[0] - getX());
@@ -775,7 +775,7 @@ public class Iwashi implements Model {
       angle_x *= -1f;
     }
 
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "candidate angle_y:[" + angle_y + "]");
       Log.d(TAG, "candidate angle_x:[" + angle_x + "]");
     }
@@ -787,7 +787,7 @@ public class Iwashi implements Model {
 
     /* aim degree of target  */
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "now y_angle:[" + y_angle + "]");
       Log.d(TAG, "now x_angle:[" + x_angle + "]");
     }
@@ -803,7 +803,7 @@ public class Iwashi implements Model {
         direction[2] = mScratch4f_2[2];
       }
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "end aimAquariumCenter "
         + "x:[" + direction[0] + "]:"
         + "y:[" + direction[1] + "]:"
@@ -812,7 +812,7 @@ public class Iwashi implements Model {
   }
 
   public boolean aimBait(Bait bait) {
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "start aimBait ");
     }
     double dist = Math.sqrt(
@@ -826,7 +826,7 @@ public class Iwashi implements Model {
     float v_x = (bait.getX() - getX());
     float v_y = (bait.getY() - getY());
     float v_z = (bait.getZ() - getZ());
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "candidate direction"
        + " x:[" + v_x + "]:"
        + " y:[" + v_y + "]:"
@@ -843,14 +843,14 @@ public class Iwashi implements Model {
     if ((angle_x < 0.0f && v_y > 0.0f) || (angle_x > 0.0f && v_y < 0.0f)) {
       angle_x *= -1f;
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "candidate angle_y:[" + angle_y + "]");
       Log.d(TAG, "candidate angle_x:[" + angle_x + "]");
     }
 
     /* aim degree of target */
     aimTargetDegree(angle_x, angle_y);
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "now y_angle:[" + y_angle + "]");
       Log.d(TAG, "now x_angle:[" + x_angle + "]");
     }
@@ -866,7 +866,7 @@ public class Iwashi implements Model {
         direction[2] = mScratch4f_2[2];
       }
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "end aimBait "
         + "x:[" + direction[0] + "]:"
         + "y:[" + direction[1] + "]:"
@@ -904,7 +904,7 @@ public class Iwashi implements Model {
     else {
       setZ(getZ() + getDirectionZ() * moveWidth);
     }
-    if (debug) {
+    if (Constant.DEBUG) {
       Log.d(TAG, "end move "
         + "dx:[" + getDirectionX() + "]:"
         + "dy:[" + getDirectionY() + "]:"
