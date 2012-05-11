@@ -259,12 +259,20 @@ public class Iwashi implements Model {
     gl10.glRotatef(y_angle, 0.0f, 1.0f, 0.0f);
     gl10.glRotatef(x_angle * -1f, 0.0f, 0.0f, 1.0f);
 
+    gl10.glDisableClientState(GL10.GL_COLOR_ARRAY);
+
     gl10.glColor4f(1,1,1,1);
     gl10.glVertexPointer(3, GL10.GL_FLOAT, 0, IwashiData.mVertexBuffer[Math.abs(finTick++ / 3) % IwashiData.mVertexBuffer.length]);
+    gl10.glEnableClientState(GL10.GL_VERTEX_ARRAY);
+
     gl10.glNormalPointer(GL10.GL_FLOAT, 0, mNormalBuffer);
+    gl10.glEnableClientState(GL10.GL_NORMAL_ARRAY);
+
     gl10.glEnable(GL10.GL_TEXTURE_2D);
     gl10.glBindTexture(GL10.GL_TEXTURE_2D, textureIds[0]);
     gl10.glTexCoordPointer(2, GL10.GL_FLOAT, 0, mTextureBuffer);
+    gl10.glEnableClientState(GL10.GL_TEXTURE_COORD_ARRAY);
+
     gl10.glDrawArrays(GL10.GL_TRIANGLES, 0, IwashiData.iwashiNumVerts);
 
     gl10.glPopMatrix();
