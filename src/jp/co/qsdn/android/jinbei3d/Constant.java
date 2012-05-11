@@ -18,5 +18,5 @@ package jp.co.qsdn.android.jinbei3d;
 
 
 public class Constant {
-  public static final boolean DEBUG = true;
+  public static final boolean DEBUG = false;
 }
