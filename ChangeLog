@@ -1,3 +1,11 @@
+jinbei3d (1.0.10) stable; urgency=low
+
+  * Fixed BUG
+    - The texture of the whale shark does not show on HTC Explorer.
+      (reported by Kit P. Thx!)
+
+ -- Atsushi Konno <konno@qsdn.co.jp>  Fri, 11 May 2012 21:40:30 +0900
+
 jinbei3d (1.0.9) stable; urgency=high
 
   * Fixed BUG.
@@ -8,7 +16,7 @@ jinbei3d (1.0.9) stable; urgency=high
 jinbei3d (1.0.8) stable; urgency=low
  
   * Fixed texture failure BUG
-    1) Sony Ericsson Xperia SO-01B(maybe P-02D)
+    1) Sony Ericsson Xperia SO-01B(maybe P-02D. reported by 846mm.Thx!)
     2) Samsung Galaxy NEXUS SC-04D
     3) Samsung Galaxy S SC-02B
 
