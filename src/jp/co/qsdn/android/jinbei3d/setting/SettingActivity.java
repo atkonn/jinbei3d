@@ -41,6 +41,7 @@ import com.google.ads.AdSize;
 
 import jp.co.qsdn.android.jinbei3d.Constant;
 import jp.co.qsdn.android.jinbei3d.R;
+import jp.co.qsdn.android.jinbei3d.AtlantisNotification;
 
 
 public class SettingActivity extends PreferenceActivity {
@@ -103,6 +104,30 @@ public class SettingActivity extends PreferenceActivity {
           startActivity(intent); 
         }
       });
+    }
+    {
+      boolean b = Prefs.getInstance(this).getStayIcon();
+  
+      Resources res = getResources();
+  
+      String key = res.getString(R.string.key_preference_stay_icon_in_notification_area);
+      CheckBoxPreference pref = (CheckBoxPreference)findPreference(key);
+      final Prefs prefs = Prefs.getInstance(this);
+      pref.setOnPreferenceChangeListener(
+        new OnPreferenceChangeListener() {
+          @Override
+          public boolean onPreferenceChange(Preference preference, Object newValue) {
+            Boolean nv = (Boolean)newValue;
+            boolean bb = prefs.getStayIcon();
+            if (bb != nv) {
+              prefs.setStayIcon(nv);
+              ((CheckBoxPreference) preference).setChecked((Boolean)newValue);
+              AtlantisNotification.putNotice(SettingActivity.this);
+            }
+            return false;
+          }
+        });
+      pref.setChecked(b);
     }
 
     AdView adView = new AdView(this, AdSize.BANNER, getResources().getString(R.string.admob_id));

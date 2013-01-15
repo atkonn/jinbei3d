@@ -24,6 +24,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import jp.co.qsdn.android.jinbei3d.setting.SettingActivity;
+import jp.co.qsdn.android.jinbei3d.setting.Prefs;
 
 /**
  * ステータスバーの実行中領域にアイコンを表示
@@ -62,8 +63,13 @@ public class AtlantisNotification {
   public static void putNotice(Context context) {
     NotificationManager nm = (NotificationManager)
        context.getSystemService(Context.NOTIFICATION_SERVICE);
-    Notification notification = createNotification(context);
-    nm.notify(AtlantisNotification.NOTIFICATION_ID, notification);
+    if (Prefs.getInstance(context).getStayIcon()) {
+      Notification notification = createNotification(context);
+      nm.notify(AtlantisNotification.NOTIFICATION_ID, notification);
+    }
+    else {
+      nm.cancel(NOTIFICATION_ID);
+    }
   }
 
   public static void removeNotice(Context context) {

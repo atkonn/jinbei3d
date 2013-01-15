@@ -34,6 +34,13 @@
     />
   </PreferenceCategory>
   <PreferenceCategory android:title="@string/title_preference_other">
+    <CheckBoxPreference   
+      android:key="@string/key_preference_stay_icon_in_notification_area"
+      android:title="@string/title_preference_stay_icon_in_notification_area"
+      android:summaryOn="@string/summary_on_preference_stay_icon_in_notification_area"  
+      android:summaryOff="@string/summary_off_preference_stay_icon_in_notification_area"
+      android:defaultValue="true"
+    />
     <jp.co.qsdn.android.jinbei3d.setting.ChangeCameraModeDialog
       android:title="@string/title_preference_camera_mode"
       android:summary="@string/summary_preference_change_camera_mode"

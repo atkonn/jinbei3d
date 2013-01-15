@@ -52,6 +52,9 @@ public class Prefs {
   public static final String KEY_JINBEI_SPEED = "jinbei_speed";
   public static final int DEFAULT_JINBEI_SPEED = 50;
 
+  public static final String KEY_STAY_ICON = "stay_icon";
+  public static final boolean DEFAULT_STAY_ICON = true;
+
   public static Prefs getInstance(Context context) {
     if (mPrefs == null) {
       mPrefs = new Prefs(context);
@@ -183,5 +186,16 @@ Log.d(TAG, ret + " = getCameraMode()");
       }
     }
     return jinbeiSpeed;
+  }
+  public void setStayIcon(boolean enableStayIcon) {
+    SharedPreferences sharedPreferences = mContext.getSharedPreferences(PACKAGE_NAME,Context.MODE_PRIVATE);  
+    sharedPreferences
+      .edit()
+      .putBoolean(KEY_STAY_ICON, enableStayIcon)
+      .commit();  
+  }
+  public boolean getStayIcon() {
+    SharedPreferences sharedPreferences = mContext.getSharedPreferences(PACKAGE_NAME, Context.MODE_PRIVATE);  
+    return  sharedPreferences.getBoolean(KEY_STAY_ICON, DEFAULT_STAY_ICON);
   }
 }
