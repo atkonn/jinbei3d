@@ -5,7 +5,7 @@
   <string name="service_name">Whale shark and sardines</string>
   <string name="description">3D live wallpaper that used BOIDS algorithm</string>
   <string name="author">QSDN,Inc.</string>
-  <string name="version">version 1.0.10</string>
+  <string name="version">version 1.0.11</string>
   <string name="copyright">Copyright (c) 2011 QSDN,Inc. All rights reserved.</string>
 
   <string name="admob_id">a14e26b16708638</string>
@@ -63,6 +63,14 @@ Requirement:\n
 3) Over 3MB Heep memory area.\n
 \n
 Newly ChangeLog:\n
+jinbei3d (1.0.11) stable; urgency=low\n
+\n
+\t* Added New Option.\n
+\t- Disable the icon in the Notification Area.\n
+\t(Thanks landroni)\n
+\n
+ -- Atsushi Konno &lt;konno@qsdn.co.jp&gt;  Tue, 15 Jan 2013 22:11:57 +0900\n
+\n
 jinbei3d (1.0.10) stable; urgency=low\n
 \n
 \t* Fixed BUG.\n
